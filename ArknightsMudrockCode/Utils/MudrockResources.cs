@@ -15,11 +15,11 @@ public class MudrockResources
     public const string NShieldIconPath = "res://ArknightsMudrock/scenes/combat/shield_icon.tscn";
 
     public static LocString ShieldLocStringTitle =>
-        new LocString("static_hover_tips", "ARKNIGHTSMUDROCK-SHIELD.title");
+        new LocString("static_hover_tips", $"{MainFile.ModId.ToUpperInvariant()}-SHIELD.title");
 
     public static LocString ShieldLocStringUiDescription =>
-        new LocString("static_hover_tips", "ARKNIGHTSMUDROCK-SHIELD.uiDescription");
+        new LocString("static_hover_tips", $"{MainFile.ModId.ToUpperInvariant()}-SHIELD.uiDescription");
 
     public static LocString ShieldLocStringDescription =>
-        new LocString("static_hover_tips", "ARKNIGHTSMUDROCK-SHIELD.description");
+        new LocString("static_hover_tips", $"{MainFile.ModId.ToUpperInvariant()}-SHIELD.description");
 }

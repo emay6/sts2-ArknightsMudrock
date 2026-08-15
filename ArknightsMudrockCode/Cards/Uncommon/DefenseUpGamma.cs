@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 #endregion
 
-namespace ArknightsMudrock.ArknightsMudrockCode.Cards;
+namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
 public class DefenseUpGamma() : ArknightsMudrockCard(1,
     CardType.Power, CardRarity.Uncommon,

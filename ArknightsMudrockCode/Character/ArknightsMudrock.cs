@@ -1,6 +1,7 @@
 #region
 
 using ArknightsMudrock.ArknightsMudrockCode.Cards;
+using ArknightsMudrock.ArknightsMudrockCode.Cards.Basic;
 using ArknightsMudrock.ArknightsMudrockCode.Extensions;
 using BaseLib.Abstracts;
 using BaseLib.Utils.NodeFactories;

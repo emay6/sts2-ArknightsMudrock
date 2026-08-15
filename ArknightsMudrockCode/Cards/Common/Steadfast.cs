@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 #endregion
 
-namespace ArknightsMudrock.ArknightsMudrockCode.Cards;
+namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Common;
 
 public class Steadfast() : ArknightsMudrockCard(1,
     CardType.Skill, CardRarity.Common,
