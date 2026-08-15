@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 #endregion
 
-namespace ArknightsMudrock.ArknightsMudrockCode.Cards;
+namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Common;
 
 public class Stoneburst() : ArknightsMudrockCard(2,
     CardType.Attack, CardRarity.Common,

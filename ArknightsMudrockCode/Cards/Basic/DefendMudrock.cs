@@ -8,7 +8,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 #endregion
 
-namespace ArknightsMudrock.ArknightsMudrockCode.Cards;
+namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Basic;
 
 public class DefendMudrock() : ArknightsMudrockCard(1,
     CardType.Skill, CardRarity.Basic,
