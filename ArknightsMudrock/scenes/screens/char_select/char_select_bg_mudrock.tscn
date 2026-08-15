@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://cygwyk0lhrqp5"]
+
+[ext_resource type="Texture2D" uid="uid://bmesp4h040dth" path="res://ArknightsMudrock/images/character/character_select_mudrock.jpg" id="1_yamc7"]
+[ext_resource type="Texture2D" uid="uid://chy8plk634uyn" path="res://muzzle_03.png" id="2_gg0uj"]
+
+[sub_resource type="Gradient" id="Gradient_gg0uj"]
+colors = PackedColorArray(0, 0, 0, 1, 0.83571845, 1.732707e-06, 4.813075e-07, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gv3fa"]
+gradient = SubResource("Gradient_gg0uj")
+
+[sub_resource type="Gradient" id="Gradient_gv3fa"]
+offsets = PackedFloat32Array(0, 0.5660377, 1)
+colors = PackedColorArray(0.7176471, 0, 0, 0, 0.64, 0.18560001, 0.19317321, 1, 0.89129084, 2.7193873e-06, 5.7756904e-07, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hn0ag"]
+gradient = SubResource("Gradient_gv3fa")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_icq75"]
+particle_flag_disable_z = true
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(1, 1, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 150.0
+angular_velocity_min = -90.000015
+angular_velocity_max = 89.999985
+gravity = Vector3(90, 10, 0)
+linear_accel_min = -50.0
+linear_accel_max = 49.999996
+scale_min = 0.099999994
+scale_max = 0.19999999
+color = Color(0.7533901, 8.904189e-07, 5.7756904e-07, 1)
+color_ramp = SubResource("GradientTexture1D_hn0ag")
+color_initial_ramp = SubResource("GradientTexture1D_gv3fa")
+
+[node name="CharSelectBgMudrock" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 1600.0
+offset_bottom = 660.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(1280, 600)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = -70.0
+offset_right = 1920.0
+offset_bottom = 1130.0
+texture = ExtResource("1_yamc7")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="TextureRect"]
+scale = Vector2(3, 3)
+amount = 20
+texture = ExtResource("2_gg0uj")
+lifetime = 6.0
+preprocess = 6.0
+randomness = 0.3
+collision_base_size = 0.0
+process_material = SubResource("ParticleProcessMaterial_icq75")

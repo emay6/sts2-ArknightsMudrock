@@ -8,6 +8,7 @@ using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Relics;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 
 #endregion
 
@@ -65,7 +66,13 @@ public class ArknightsMudrock : PlaceholderCharacterModel
 	}
 
 	public override string CustomIconTexturePath => "character_icon_char_name.png".CharacterUiPath();
-	public override string CustomCharacterSelectIconPath => "char_select_char_name.png".CharacterUiPath();
+	public override string CustomCharacterSelectIconPath => "char_select_mudrock.png".CharacterUiPath();
 	public override string CustomCharacterSelectLockedIconPath => "char_select_char_name_locked.png".CharacterUiPath();
 	public override string CustomMapMarkerPath => "map_marker_char_name.png".CharacterUiPath();
+	public override string CustomMerchantAnimPath => "res://ArknightsMudrock/scenes/merchant/mudrock_merchant.tscn";
+	public override string CustomCharacterSelectBg => "res://ArknightsMudrock/scenes/screens/char_select/char_select_bg_mudrock.tscn";
+	public override NCreatureVisuals CreateCustomVisuals()
+	{
+		return NodeFactory<NCreatureVisuals>.CreateFromScene("res://ArknightsMudrock/scenes/creature_visuals/Mudrock2.tscn");
+	}
 }
