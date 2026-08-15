@@ -1,7 +1,11 @@
-﻿using BaseLib.Abstracts;
-using BaseLib.Extensions;
+﻿#region
+
 using ArknightsMudrock.ArknightsMudrockCode.Extensions;
+using BaseLib.Abstracts;
+using BaseLib.Extensions;
 using MegaCrit.Sts2.Core.Entities.Powers;
+
+#endregion
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Powers;
 

@@ -1,6 +1,10 @@
-﻿using BaseLib.Abstracts;
+﻿#region
+
 using ArknightsMudrock.ArknightsMudrockCode.Extensions;
+using BaseLib.Abstracts;
 using Godot;
+
+#endregion
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Character;
 

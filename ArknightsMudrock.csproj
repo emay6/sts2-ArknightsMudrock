@@ -9,6 +9,7 @@
         <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
         <PathMap>$(AppOutputBase)=.\</PathMap>
         <GodotDisabledSourceGenerators>GodotPluginsInitializer</GodotDisabledSourceGenerators>
+        <LangVersion>14</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -28,7 +29,7 @@
         </Reference>
     </ItemGroup>
 
-    <ItemGroup Condition="False"> <!--Allows access to originally private/protected members but may (unlikely to) cause errors.-->
+    <ItemGroup Condition="True"> <!--Allows access to originally private/protected members but may (unlikely to) cause errors.-->
         <Publicize Include="sts2" IncludeVirtualMembers="false" IncludeCompilerGeneratedMembers="false"/>
     </ItemGroup>
 

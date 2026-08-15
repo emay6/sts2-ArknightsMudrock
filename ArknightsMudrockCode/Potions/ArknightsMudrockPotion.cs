@@ -1,6 +1,10 @@
-﻿using BaseLib.Abstracts;
-using BaseLib.Utils;
+﻿#region
+
 using ArknightsMudrock.ArknightsMudrockCode.Character;
+using BaseLib.Abstracts;
+using BaseLib.Utils;
+
+#endregion
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Potions;
 

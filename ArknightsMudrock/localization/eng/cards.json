@@ -1,3 +1,14 @@
 {
-  
+  "ARKNIGHTSMUDROCK-STRIKE_MUDROCK.description": "Deal {Damage:diff()} damage.",
+  "ARKNIGHTSMUDROCK-STRIKE_MUDROCK.title": "Strike",
+  "ARKNIGHTSMUDROCK-DEFEND_MUDROCK.description": "Gain {Block:diff()} [gold]Block[/gold].",
+  "ARKNIGHTSMUDROCK-DEFEND_MUDROCK.title": "Defend",
+  "ARKNIGHTSMUDROCK-UPSWING.description": "Deal {Damage:diff()} damage.",
+  "ARKNIGHTSMUDROCK-UPSWING.title": "Upswing",
+  "ARKNIGHTSMUDROCK-STONEBURST.description": "Deal {Damage:diff()} damage. Apply {QuakePower:diff()} [gold]Quake[/gold].",
+  "ARKNIGHTSMUDROCK-STONEBURST.title": "Stoneburst",
+  "ARKNIGHTSMUDROCK-STEADFAST.description": "Gain {Shield:diff()} [gold]Shield[/gold].",
+  "ARKNIGHTSMUDROCK-STEADFAST.title": "Steadfast",
+  "ARKNIGHTSMUDROCK-DEFENSE_UP_GAMMA.description": "Gain {DensityPower:diff()} [gold]Density[/gold].",
+  "ARKNIGHTSMUDROCK-DEFENSE_UP_GAMMA.title": "Defense Up γ"
 }

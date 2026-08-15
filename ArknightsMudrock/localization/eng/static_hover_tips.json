@@ -1,3 +1,5 @@
 {
-  
+  "ARKNIGHTSMUDROCK-SHIELD.uiDescription": "Take [blue]{ShieldValue}[/blue] less damage and gain [blue]{EnergyValue}[/blue] {energyPrefix:energyIcons(1)} from the next {ShieldCount:plural:attack|[blue]{}[/blue] attacks}.",
+  "ARKNIGHTSMUDROCK-SHIELD.description": "Take less damage and gain energy from attacks.",
+  "ARKNIGHTSMUDROCK-SHIELD.title": "Shield"
 }

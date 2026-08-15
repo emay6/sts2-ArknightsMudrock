@@ -1,0 +1,38 @@
+#region
+
+using ArknightsMudrock.ArknightsMudrockCode.Powers;
+using BaseLib.Extensions;
+using BaseLib.Utils;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.ValueProps;
+
+#endregion
+
+namespace ArknightsMudrock.ArknightsMudrockCode.Cards;
+
+public class Stoneburst() : ArknightsMudrockCard(2,
+    CardType.Attack, CardRarity.Common,
+    TargetType.AnyEnemy)
+{
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DamageVar(7, ValueProp.Move),
+        new PowerVar<QuakePower>(3)
+    ];
+
+    protected override async Task OnPlay(
+        PlayerChoiceContext choiceContext,
+        CardPlay play)
+    {
+        await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_rock_shatter").Execute(choiceContext);
+        if (play.Target != null)
+            await CommonActions.Apply<QuakePower>(choiceContext, play.Target, this, DynamicVars.Power<QuakePower>().BaseValue);
+    }
+
+    protected override void OnUpgrade()
+    {
+        DynamicVars.Damage.UpgradeValueBy(3);
+        DynamicVars.Power<QuakePower>().UpgradeValueBy(2);
+    }
+}

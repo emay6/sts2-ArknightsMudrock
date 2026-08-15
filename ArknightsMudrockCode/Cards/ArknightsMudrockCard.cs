@@ -1,9 +1,13 @@
-﻿using BaseLib.Abstracts;
-using BaseLib.Extensions;
-using BaseLib.Utils;
+﻿#region
+
 using ArknightsMudrock.ArknightsMudrockCode.Character;
 using ArknightsMudrock.ArknightsMudrockCode.Extensions;
+using BaseLib.Abstracts;
+using BaseLib.Extensions;
+using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Cards;
+
+#endregion
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards;
 

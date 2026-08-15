@@ -1,8 +1,12 @@
-﻿using BaseLib.Abstracts;
-using BaseLib.Extensions;
-using BaseLib.Utils;
+﻿#region
+
 using ArknightsMudrock.ArknightsMudrockCode.Character;
 using ArknightsMudrock.ArknightsMudrockCode.Extensions;
+using BaseLib.Abstracts;
+using BaseLib.Extensions;
+using BaseLib.Utils;
+
+#endregion
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Relics;
 
