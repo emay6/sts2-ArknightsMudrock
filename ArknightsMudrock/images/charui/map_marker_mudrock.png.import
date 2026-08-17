@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chy8plk634uyn"
-path="res://.godot/imported/muzzle_03.png-759948c1c8fab9239b771bcce7558927.ctex"
+uid="uid://du3b4nfadg2s4"
+path="res://.godot/imported/map_marker_mudrock.png-683a375db70e60245b91b9e7484043c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArknightsMudrock/images/charui/muzzle_03.png"
-dest_files=["res://.godot/imported/muzzle_03.png-759948c1c8fab9239b771bcce7558927.ctex"]
+source_file="res://ArknightsMudrock/images/charui/map_marker_mudrock.png"
+dest_files=["res://.godot/imported/map_marker_mudrock.png-683a375db70e60245b91b9e7484043c4.ctex"]
 
 [params]
 

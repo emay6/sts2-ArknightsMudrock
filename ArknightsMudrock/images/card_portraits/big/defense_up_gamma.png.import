@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chy8plk634uyn"
-path="res://.godot/imported/muzzle_03.png-759948c1c8fab9239b771bcce7558927.ctex"
+uid="uid://b8t4wrgedqein"
+path="res://.godot/imported/defense_up_gamma.png-a14c1784dcd2de4c7e58147fa3009a9d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArknightsMudrock/images/charui/muzzle_03.png"
-dest_files=["res://.godot/imported/muzzle_03.png-759948c1c8fab9239b771bcce7558927.ctex"]
+source_file="res://ArknightsMudrock/images/card_portraits/big/defense_up_gamma.png"
+dest_files=["res://.godot/imported/defense_up_gamma.png-a14c1784dcd2de4c7e58147fa3009a9d.ctex"]
 
 [params]
 

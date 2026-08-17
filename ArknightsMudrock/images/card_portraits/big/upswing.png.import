@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chy8plk634uyn"
-path="res://.godot/imported/muzzle_03.png-759948c1c8fab9239b771bcce7558927.ctex"
+uid="uid://mq0ngyidssau"
+path="res://.godot/imported/upswing.png-e9d73074f8e71e8ffd324487bbfc1733.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArknightsMudrock/images/charui/muzzle_03.png"
-dest_files=["res://.godot/imported/muzzle_03.png-759948c1c8fab9239b771bcce7558927.ctex"]
+source_file="res://ArknightsMudrock/images/card_portraits/big/upswing.png"
+dest_files=["res://.godot/imported/upswing.png-e9d73074f8e71e8ffd324487bbfc1733.ctex"]
 
 [params]
 

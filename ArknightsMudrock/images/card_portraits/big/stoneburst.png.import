@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chy8plk634uyn"
-path="res://.godot/imported/muzzle_03.png-759948c1c8fab9239b771bcce7558927.ctex"
+uid="uid://b6qwqlcbpe1gl"
+path="res://.godot/imported/stoneburst.png-61c01ee6583f0d65f06fe072b68e38f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ArknightsMudrock/images/charui/muzzle_03.png"
-dest_files=["res://.godot/imported/muzzle_03.png-759948c1c8fab9239b771bcce7558927.ctex"]
+source_file="res://ArknightsMudrock/images/card_portraits/big/stoneburst.png"
+dest_files=["res://.godot/imported/stoneburst.png-61c01ee6583f0d65f06fe072b68e38f6.ctex"]
 
 [params]
 

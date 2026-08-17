@@ -66,10 +66,10 @@ public class ArknightsMudrock : PlaceholderCharacterModel
 		}
 	}
 
-	public override string CustomIconTexturePath => "character_icon_char_name.png".CharacterUiPath();
+	public override string CustomIconTexturePath => "character_icon_mudrock.png".CharacterUiPath();
 	public override string CustomCharacterSelectIconPath => "char_select_mudrock.png".CharacterUiPath();
 	public override string CustomCharacterSelectLockedIconPath => "char_select_char_name_locked.png".CharacterUiPath();
-	public override string CustomMapMarkerPath => "map_marker_char_name.png".CharacterUiPath();
+	public override string CustomMapMarkerPath => "map_marker_mudrock.png".CharacterUiPath();
 	public override string CustomMerchantAnimPath => "res://ArknightsMudrock/scenes/merchant/mudrock_merchant.tscn";
 	public override string CustomCharacterSelectBg => "res://ArknightsMudrock/scenes/screens/char_select/char_select_bg_mudrock.tscn";
 	public override NCreatureVisuals CreateCustomVisuals()
