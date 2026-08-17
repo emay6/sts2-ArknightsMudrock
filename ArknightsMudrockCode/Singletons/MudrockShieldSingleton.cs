@@ -33,7 +33,7 @@ public class MudrockShieldSingleton() : CustomSingletonModel(HookType.Combat), I
         
         shieldState.Shields -= 1;
         MudrockHooks.AfterShieldLost(combatState, player, dealer);
-        return amount - shieldState.ShieldValue;
+        return Math.Max(0, amount - shieldState.ShieldValue);
     }
 
     // default behavior upon losing shield (gaining energy)
