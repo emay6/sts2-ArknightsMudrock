@@ -1,15 +1,16 @@
-using ArknightsMudrock.ArknightsMudrockCode.Cards;
+#region
+
 using ArknightsMudrock.ArknightsMudrockCode.Powers;
 using ArknightsMudrock.ArknightsMudrockCode.Variables;
 using BaseLib.Extensions;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
+
+#endregion
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Rare;
 
@@ -24,7 +25,6 @@ public class Obsidian() : ArknightsMudrockCard(1,
         new CalculatedDamageVar(ValueProp.Move)
             .WithMultiplier((card, _) => card.Owner.Creature.GetPowerAmount<DensityPower>()),
         new ObsidianCalculatedDamage()
-        //new DamageVar(ObsidianCalculatedDamageKey, 0, ValueProp.Move)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<DensityPower>()];

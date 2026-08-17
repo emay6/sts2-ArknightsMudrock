@@ -1,8 +1,12 @@
+#region
+
 using ArknightsMudrock.ArknightsMudrockCode.Commands;
 using ArknightsMudrock.ArknightsMudrockCode.Variables;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Rooms;
+
+#endregion
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Relics;
 

@@ -1,6 +1,5 @@
 #region
 
-using ArknightsMudrock.ArknightsMudrockCode.Cards;
 using ArknightsMudrock.ArknightsMudrockCode.Cards.Basic;
 using ArknightsMudrock.ArknightsMudrockCode.Extensions;
 using ArknightsMudrock.ArknightsMudrockCode.Relics;
@@ -9,7 +8,6 @@ using BaseLib.Utils.NodeFactories;
 using Godot;
 using MegaCrit.Sts2.Core.Entities.Characters;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Relics;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 
 #endregion

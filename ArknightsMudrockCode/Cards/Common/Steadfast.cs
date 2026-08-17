@@ -24,7 +24,7 @@ public class Steadfast() : ArknightsMudrockCard(1,
         CardPlay play)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        await ShieldCmd.GainShield(DynamicVars[ShieldVar.Key].IntValue, play.Card.Owner, play);
+        await ShieldCmd.GainShield(DynamicVars[ShieldVar.Key].IntValue, Owner, play);
     }
 
     protected override void OnUpgrade()

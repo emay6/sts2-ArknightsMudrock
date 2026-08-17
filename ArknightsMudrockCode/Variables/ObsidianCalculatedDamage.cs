@@ -1,5 +1,9 @@
+#region
+
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
+
+#endregion
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Variables;
 

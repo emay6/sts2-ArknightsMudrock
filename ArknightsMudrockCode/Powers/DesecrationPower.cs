@@ -1,8 +1,12 @@
+#region
+
 using ArknightsMudrock.ArknightsMudrockCode.Keywords;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
+
+#endregion
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Powers;
 

@@ -24,20 +24,30 @@ public class QuakePower() : ArknightsMudrockPower
 
     public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        List<Creature> creatures = participants.ToList();
+        var creatures = participants.ToList();
         
-        if (CombatManager.Instance.IsOverOrEnding || !creatures.Contains(this.Owner) || this.Owner.IsDead) return;
+        if (CombatManager.Instance.IsOverOrEnding || !creatures.Contains(Owner) || Owner.IsDead) return;
 
-        IEnumerable<Creature> targets = creatures.Where(c => c != this.Owner && c.IsHittable);
-        this.Flash();
-        foreach (Creature creature in targets)
+        var targets = creatures.Where(c => c.IsHittable).ToList();
+        // temp solution for palpitations
+        var palpitationsActive = Applier?.HasPower<PalpitationsPower>() ?? false;
+        foreach (var creature in (palpitationsActive ? targets : targets.Where(c => c != Owner)))
         {
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), creature, this.Amount, ValueProp.Unpowered, this.Applier, null);
+            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), creature, Amount, ValueProp.Unpowered, Applier, null);
         }
         
-        if (this.Owner.IsAlive)
+        if (Owner.IsAlive)
             await PowerCmd.Remove(this);
         else
             await Cmd.CustomScaledWait(0.1f, 0.25f);
+        
+        // temp solution for Aftershocks
+        var aftershocksActive = Applier?.HasPower<AftershocksPower>() ?? false;
+        if (!CombatManager.Instance.IsOverOrEnding && aftershocksActive)
+        {
+            var newTarget = CombatState.RunState.Rng.CombatTargets.NextItem(targets.Where(c => c != Owner && c.IsHittable));
+            if (newTarget != null)
+                await PowerCmd.Apply<QuakePower>(choiceContext, newTarget, Amount, Applier, null);
+        }
     }
 }

@@ -1,10 +1,13 @@
-using ArknightsMudrock.ArknightsMudrockCode.Cards.Rare;
+#region
+
 using ArknightsMudrock.ArknightsMudrockCode.Powers;
 using ArknightsMudrock.ArknightsMudrockCode.Variables;
 using BaseLib.Extensions;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+
+#endregion
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Patches;
 
@@ -22,6 +25,7 @@ public class CalculatedVarPatch
             var damage = owner.DynamicVars.ExtraDamage.BaseValue;
 
             obsidianCalculatedDamage.BaseValue = __result + (densityAmount * damage);
+            obsidianCalculatedDamage.WasJustUpgraded = true;
         }
     }
 }

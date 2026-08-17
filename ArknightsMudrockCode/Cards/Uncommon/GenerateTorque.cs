@@ -1,4 +1,5 @@
-using ArknightsMudrock.ArknightsMudrockCode.Cards;
+#region
+
 using ArknightsMudrock.ArknightsMudrockCode.Keywords;
 using ArknightsMudrock.ArknightsMudrockCode.Powers;
 using BaseLib.Utils;
@@ -6,7 +7,8 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
+
+#endregion
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
@@ -23,7 +25,7 @@ public class GenerateTorque() : ArknightsMudrockCard(0,
         CardPlay play)
     {
         if (ResolveEnergyXValue() > 0)
-            await CreatureCmd.TriggerAnim(this.Owner.Creature, "Cast", this.Owner.Character.CastAnimDelay);
+            await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
     }
 
     // work around so you still get momentum
