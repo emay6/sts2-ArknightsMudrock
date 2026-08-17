@@ -5,6 +5,7 @@ using BaseLib.Extensions;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -12,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Common;
 
-public class Stoneburst() : ArknightsMudrockCard(2,
+public class Stoneburst() : ArknightsMudrockCard(1,
     CardType.Attack, CardRarity.Common,
     TargetType.AnyEnemy)
 {
@@ -21,13 +22,15 @@ public class Stoneburst() : ArknightsMudrockCard(2,
         new PowerVar<QuakePower>(3)
     ];
 
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<QuakePower>()];
+
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_rock_shatter").Execute(choiceContext);
         if (play.Target != null)
-            await CommonActions.Apply<QuakePower>(choiceContext, play.Target, this, DynamicVars.Power<QuakePower>().BaseValue);
+            await CommonActions.Apply<QuakePower>(choiceContext, play.Target, this);
     }
 
     protected override void OnUpgrade()

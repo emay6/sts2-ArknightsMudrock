@@ -7,5 +7,18 @@
   "ARKNIGHTSMUDROCK-QUAKE_POWER.title": "Quake",
   "ARKNIGHTSMUDROCK-DENSITY_POWER.description": "Density improves the damage reduction of [gold]Shields[/gold].",
   "ARKNIGHTSMUDROCK-DENSITY_POWER.smartDescription": "Damage reduction of [gold]Shields[/gold] is {Amount:cond:<0?decreased|increased} by [blue]{Amount:abs()}[/blue].",
-  "ARKNIGHTSMUDROCK-DENSITY_POWER.title": "Density"
+  "ARKNIGHTSMUDROCK-DENSITY_POWER.title": "Density",
+  "ARKNIGHTSMUDROCK-TEMPORARY_DENSITY_DOWN.description": "Lose [gold]Density[/gold] until the start of your next turn.",
+  "ARKNIGHTSMUDROCK-TEMPORARY_DENSITY_DOWN.smartDescription": "Lose [blue]{Amount}[/blue] [gold]Density[/gold] until the start of your next turn.",
+  "ARKNIGHTSMUDROCK-TEMPORARY_DENSITY_POWER.description": "Gain [gold]Density[/gold] until the start of your next turn.",
+  "ARKNIGHTSMUDROCK-TEMPORARY_DENSITY_POWER.smartDescription": "Gain [blue]{Amount}[/blue] [gold]Density[/gold] until the start of your next turn.",
+  "ARKNIGHTSMUDROCK-MOMENTOUS_SHIFT_POWER.description": "The first [gold]Inertial[/gold] card you play each turn costs [blue]0[/blue].",
+  "ARKNIGHTSMUDROCK-MOMENTOUS_SHIFT_POWER.smartDescription": "The first {Amount:plural:|[blue]{}[/blue] }[gold]Inertial[/gold] {Amount:plural:card|cards} you play each turn {Amount:plural:costs|cost} [blue]0[/blue].",
+  "ARKNIGHTSMUDROCK-MOMENTOUS_SHIFT_POWER.title": "Momentous Shift",
+  "ARKNIGHTSMUDROCK-DESECRATION_POWER.description": "Skills become [gold]Inertial[/gold].\nWhenever you play a Skill, [gold]Exhaust[/gold] it.",
+  "ARKNIGHTSMUDROCK-DESECRATION_POWER.smartDescription": "Skills become [gold]Inertial[/gold].\nWhenever you play a Skill, [gold]Exhaust[/gold] it.",
+  "ARKNIGHTSMUDROCK-DESECRATION_POWER.title": "Desecration",
+  "ARKNIGHTSMUDROCK-ROYAL_HERITAGE_POWER.description": "The first time you gain [gold]Momentum[/gold] each turn, gain 1 additional [gold]Momentum[/gold].",
+  "ARKNIGHTSMUDROCK-ROYAL_HERITAGE_POWER.smartDescription": "The first time you gain [gold]Momentum[/gold] each turn, gain [blue]{Amount}[/blue] additional [gold]Momentum[/gold].",
+  "ARKNIGHTSMUDROCK-ROYAL_HERITAGE_POWER.title": "Royal Heritage"
 }

@@ -21,13 +21,13 @@ public class MudrockShieldSingleton() : CustomSingletonModel(HookType.Combat), I
     public override decimal ModifyHpLostBeforeOsty(Creature? target, decimal amount, ValueProp props, Creature? dealer,
         CardModel? cardSource)
     {
-        if (target is null || !target.IsPlayer || !props.IsPoweredAttack() || amount == 0) return amount;
+        if (target == null || !target.IsPlayer || !props.IsPoweredAttack() || amount == 0) return amount;
 
         var player = target.Player!;
         var combatState = target.CombatState!;
         var playerCombatState = player.PlayerCombatState;
         
-        if (playerCombatState is null || playerCombatState.ShieldState()?.Shields == 0) return amount;
+        if (playerCombatState == null || playerCombatState.ShieldState()?.Shields == 0) return amount;
 
         var shieldState = playerCombatState.ShieldState()!;
         
@@ -42,7 +42,7 @@ public class MudrockShieldSingleton() : CustomSingletonModel(HookType.Combat), I
         var shieldState = player.PlayerCombatState?.ShieldState();
         var target = player.Creature;
         
-        if (shieldState is null) return Task.CompletedTask;
+        if (shieldState == null) return Task.CompletedTask;
         
         // uses energy next turn power when enemy's turn since otherwise energy is lost
         if (combatState.CurrentSide == CombatSide.Enemy)

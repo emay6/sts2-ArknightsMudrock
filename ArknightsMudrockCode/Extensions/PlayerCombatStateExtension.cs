@@ -10,7 +10,7 @@ namespace ArknightsMudrock.ArknightsMudrockCode.Extensions;
 
 public static class PlayerCombatStateExtension
 {
-    public class ShieldCombatState(PlayerCombatState combatState)
+    public class ShieldCombatState()
     {
         public event Action<int, int>? ShieldChanged;
         public event Action<int, int>? ShieldValueChanged;

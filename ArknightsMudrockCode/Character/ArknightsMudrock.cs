@@ -3,6 +3,7 @@
 using ArknightsMudrock.ArknightsMudrockCode.Cards;
 using ArknightsMudrock.ArknightsMudrockCode.Cards.Basic;
 using ArknightsMudrock.ArknightsMudrockCode.Extensions;
+using ArknightsMudrock.ArknightsMudrockCode.Relics;
 using BaseLib.Abstracts;
 using BaseLib.Utils.NodeFactories;
 using Godot;
@@ -45,7 +46,7 @@ public class ArknightsMudrock : PlaceholderCharacterModel
 
 	public override IReadOnlyList<RelicModel> StartingRelics =>
 	[
-		ModelDb.Relic<BurningBlood>()
+		ModelDb.Relic<ClayDoll>()
 	];
 
 	public override CardPoolModel CardPool => ModelDb.CardPool<ArknightsMudrockCardPool>();

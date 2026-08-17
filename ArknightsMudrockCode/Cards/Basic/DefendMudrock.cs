@@ -14,6 +14,8 @@ public class DefendMudrock() : ArknightsMudrockCard(1,
     CardType.Skill, CardRarity.Basic,
     TargetType.Self)
 {
+    public override bool GainsBlock => true;
+
     protected override HashSet<CardTag> CanonicalTags => [CardTag.Defend];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [new BlockVar(5, ValueProp.Move)];

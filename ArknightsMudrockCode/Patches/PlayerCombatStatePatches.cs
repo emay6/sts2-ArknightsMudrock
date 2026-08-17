@@ -17,7 +17,7 @@ public class PlayerCombatStatePatches
     [HarmonyPostfix]
     private static void Postfix(Player player, PlayerCombatState __instance)
     {
-        var shieldCombatState = new PlayerCombatStateExtension.ShieldCombatState(__instance);
+        var shieldCombatState = new PlayerCombatStateExtension.ShieldCombatState();
         
         MudrockField.ShieldCombatState[__instance] = shieldCombatState;
         

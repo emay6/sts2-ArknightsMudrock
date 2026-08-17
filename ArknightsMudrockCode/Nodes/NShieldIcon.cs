@@ -56,12 +56,12 @@ public partial class NShieldIcon : Control
 		GetNode<MarginContainer>("%ShieldValueContainer").AddChild(_shieldValueLabel);
 
 		_descLocString = MudrockResources.ShieldLocStringUiDescription;
-		UpdateHoverTip(_shieldCount, _shieldValue, _energyValue);
+		// UpdateHoverTip(_shieldCount, _shieldValue, _energyValue);
 		
 		Connect(Control.SignalName.MouseEntered, Callable.From(OnHovered));
 		Connect(Control.SignalName.MouseExited, Callable.From(OnUnhovered));
 		
-		UpdateShieldIconInfo(_shieldCount, _shieldValue, _energyValue, true);
+		// UpdateShieldIconInfo(_shieldCount, _shieldValue, _energyValue, true);
 		
 		Visible = false;
 	}

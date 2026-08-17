@@ -26,7 +26,7 @@ public class DefenseUpGamma() : ArknightsMudrockCard(1,
         CardPlay play)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
-        await CommonActions.ApplySelf<DensityPower>(choiceContext, this, DynamicVars.Power<DensityPower>().BaseValue);
+        await CommonActions.ApplySelf<DensityPower>(choiceContext, this);
     }
 
     protected override void OnUpgrade()
