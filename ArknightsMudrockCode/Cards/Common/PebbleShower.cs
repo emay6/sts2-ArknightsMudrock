@@ -8,34 +8,33 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 #endregion
 
-namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Rare;
+namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Common;
 
-public class Landslide() : ArknightsMudrockCard(5,
-    CardType.Attack, CardRarity.Rare,
-    TargetType.RandomEnemy)
+public class PebbleShower() : ArknightsMudrockCard(1,
+    CardType.Attack, CardRarity.Common,
+    TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(7, ValueProp.Move),
-        new RepeatVar(8)
+        new DamageVar(1, ValueProp.Move),
+        new RepeatVar(6)
     ];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        var combatState = CombatState ?? throw new InvalidOperationException("Landslide requires an active combat.");
+        ArgumentNullException.ThrowIfNull(play.Target, nameof(play.Target));
 
         await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
             .WithHitCount(DynamicVars.Repeat.IntValue)
             .FromCard(this)
-            .TargetingRandomOpponents(combatState)
-            .WithHitFx("vfx/vfx_attack_blunt")
+            .Targeting(play.Target)
+            .WithHitFx("vfx/vfx_attack_blunt", tmpSfx: "blunt_attack.mp3")
             .Execute(choiceContext);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(1);
         DynamicVars.Repeat.UpgradeValueBy(1);
     }
 }
