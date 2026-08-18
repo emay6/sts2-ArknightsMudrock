@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Common;
 
-public class EarthernStrike() : ArknightsMudrockCard(1,
+public class EarthenStrike() : ArknightsMudrockCard(1,
     CardType.Attack, CardRarity.Common,
     TargetType.AnyEnemy)
 {
