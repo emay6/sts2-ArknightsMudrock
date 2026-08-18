@@ -21,7 +21,7 @@ public class NoMomentumPower() : ArknightsMudrockPower
     public override decimal ModifyPowerAmountGivenMultiplicative(PowerModel power, Creature giver, decimal amount, Creature? target,
         CardModel? cardSource)
     {
-        return target != Owner ? amount : 0;
+        return (target == Owner && power is MomentumPower) ? 0 : 1;
     }
 
     public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
