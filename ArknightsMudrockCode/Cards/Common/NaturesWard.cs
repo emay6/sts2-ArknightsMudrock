@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 
 #endregion
 
@@ -57,7 +58,7 @@ public class NaturesWard() : ArknightsMudrockCard(2,
         return Task.CompletedTask;
     }
 
-    public Task AfterShieldLost(ICombatState combatState, Player player, Creature? source = null)
+    public Task AfterShieldLost(ICombatState combatState, Player player, Creature? source = null, ValueProp? props = null)
     {
         if (player != Owner) return Task.CompletedTask;
         UpdateEnergyCost();

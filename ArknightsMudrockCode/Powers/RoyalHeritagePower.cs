@@ -22,6 +22,7 @@ public class RoyalHeritagePower() : ArknightsMudrockPower
     protected override object? InitInternalData() => new Data();
 
     // uncomment to have the power retroactively check if momentum has already been gained the same turn it's played
+    // (also would need to change to counting the amount)
     // public override Task AfterApplied(Creature? applier, CardModel? cardSource)
     // {
     //     GetInternalData<Data>().gainedMomentumThisTurn = CombatManager.Instance.History.Entries.Any(e =>
@@ -29,25 +30,25 @@ public class RoyalHeritagePower() : ArknightsMudrockPower
     //     return Task.CompletedTask;
     // }
 
-    public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier,
+    public override decimal ModifyPowerAmountGivenAdditive(PowerModel power, Creature giver, decimal amount, Creature? target,
         CardModel? cardSource)
     {
-        if (power.Owner != Owner || power is not MomentumPower || GetInternalData<Data>().gainedMomentumThisTurn) return;
-
-        GetInternalData<Data>().gainedMomentumThisTurn = true;
-        await PowerCmd.Apply<MomentumPower>(new ThrowingPlayerChoiceContext(), Owner, Amount, applier, cardSource);
+        if (target != Owner || power is not MomentumPower || GetInternalData<Data>().gainedMomentumThisTurn >= Amount) return 0;
+        
+        ++GetInternalData<Data>().gainedMomentumThisTurn;
+        return 1;
     }
 
     public override Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (!participants.Contains(Owner)) return Task.CompletedTask;
         
-        GetInternalData<Data>().gainedMomentumThisTurn = false;
+        GetInternalData<Data>().gainedMomentumThisTurn = 0;
         return Task.CompletedTask;
     }
 
     private class Data
     {
-        public bool gainedMomentumThisTurn;
+        public int gainedMomentumThisTurn;
     }
 }

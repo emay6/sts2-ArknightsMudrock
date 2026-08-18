@@ -26,7 +26,7 @@ public class MomentumPower() : ArknightsMudrockPower
     public override bool TryModifyEnergyCostInCombat(CardModel card, decimal originalCost, out decimal modifiedCost)
     {
         if (card.Owner.Creature == Owner && card.Type == CardType.Attack
-            && (card.Pile?.Type == PileType.Hand || card.Pile?.Type == PileType.Play))
+            && card.Pile?.Type is PileType.Hand or PileType.Play)
         {
             modifiedCost = originalCost - Amount;
             return true;

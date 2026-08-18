@@ -18,6 +18,8 @@ public static class ShieldCmd
         if (amount > 0 && !CombatManager.Instance.IsEnding && player.Creature.CombatState != null)
         {
             var shieldState = player.PlayerCombatState?.ShieldState();
+            if (shieldState?.Shields == shieldState?.MaxShieldCount) return;
+            
             shieldState?.Shields += amount;
             await MudrockHooks.AfterShieldGained(player.Creature.CombatState, player);
         }
@@ -28,6 +30,8 @@ public static class ShieldCmd
         if (amount > 0 && !CombatManager.Instance.IsEnding && player.Creature.CombatState != null)
         {
             var shieldState = player.PlayerCombatState?.ShieldState();
+            if (shieldState?.Shields == 0) return;
+            
             shieldState?.Shields -= amount;
             await MudrockHooks.AfterShieldLost(player.Creature.CombatState, player, source);
         }
@@ -39,6 +43,15 @@ public static class ShieldCmd
         {
             var shieldState = player.PlayerCombatState?.ShieldState();
             shieldState?.ShieldValue = amount;
+        }
+    }
+
+    public static async Task SetMaxShieldAmount(int amount, Player player, CardPlay? cardPlay = null)
+    {
+        if (!CombatManager.Instance.IsEnding && player.Creature.CombatState != null)
+        {
+            var shieldState = player.PlayerCombatState?.ShieldState();
+            shieldState?.MaxShieldCount = amount;
         }
     }
 }

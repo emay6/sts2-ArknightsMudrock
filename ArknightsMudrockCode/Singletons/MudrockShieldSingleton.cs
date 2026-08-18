@@ -32,12 +32,12 @@ public class MudrockShieldSingleton() : CustomSingletonModel(HookType.Combat), I
         var shieldState = playerCombatState.ShieldState()!;
         
         shieldState.Shields -= 1;
-        MudrockHooks.AfterShieldLost(combatState, player, dealer);
+        MudrockHooks.AfterShieldLost(combatState, player, dealer, props);
         return Math.Max(0, amount - shieldState.ShieldValue);
     }
 
     // default behavior upon losing shield (gaining energy)
-    public Task AfterShieldLost(ICombatState combatState, Player player, Creature? source = null)
+    public Task AfterShieldLost(ICombatState combatState, Player player, Creature? source = null, ValueProp? props = null)
     {
         var shieldState = player.PlayerCombatState?.ShieldState();
         var target = player.Creature;

@@ -1,5 +1,6 @@
 #region
 
+using ArknightsMudrock.ArknightsMudrockCode.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -26,7 +27,7 @@ public class RubbleRain() : ArknightsMudrockCard(2,
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         
-        var transformableCards = GetDeckInCombat().Where(c => c is Debris && c.IsTransformable);
+        var transformableCards = MudrockUtils.GetDeckInCombat(Owner).Where(c => c is Debris && c.IsTransformable);
 
         if (CombatState != null)
         {
@@ -41,18 +42,10 @@ public class RubbleRain() : ArknightsMudrockCard(2,
         // kinda arbitrary so can revisit
         await Cmd.CustomScaledWait(0.2f, 0.4f);
         
-        var giantRockCards = GetDeckInCombat().Where(c => c is GiantRock && !c.Keywords.Contains(CardKeyword.Unplayable));
+        var giantRockCards = MudrockUtils.GetDeckInCombat(Owner).Where(c => c is GiantRock && !c.Keywords.Contains(CardKeyword.Unplayable));
         foreach (var giantRock in giantRockCards)
         {
             await CardCmd.AutoPlay(choiceContext, giantRock, null);
         }
     }
-
-    private List<CardModel> GetDeckInCombat()
-    {
-        var drawPile = PileType.Draw.GetPile(Owner).Cards;
-        var handPile = PileType.Hand.GetPile(Owner).Cards;
-        var discardPile = PileType.Discard.GetPile(Owner).Cards;
-        return drawPile.Concat(handPile).Concat(discardPile).ToList();
-    } 
 }
