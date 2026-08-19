@@ -3,9 +3,11 @@
 using ArknightsMudrock.ArknightsMudrockCode.Extensions;
 using ArknightsMudrock.ArknightsMudrockCode.Hooks;
 using BaseLib.Abstracts;
+using GodotPlugins.Game;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
@@ -37,24 +39,48 @@ public class MudrockShieldSingleton() : CustomSingletonModel(HookType.Combat), I
     }
 
     // default behavior upon losing shield (gaining energy)
-    public Task AfterShieldLost(ICombatState combatState, Player player, Creature? source = null, ValueProp? props = null)
+    public async Task AfterShieldLost(ICombatState combatState, Player player, Creature? source = null, ValueProp? props = null)
     {
         var shieldState = player.PlayerCombatState?.ShieldState();
         var target = player.Creature;
         
-        if (shieldState == null) return Task.CompletedTask;
+        foreach (var p in combatState.Players)
+        {
+            var s = p.PlayerCombatState?.ShieldState();
+            if (s != null)
+            {
+                MainFile.Logger.Info($"Player with id {p.NetId} shield values before lost - Shields: {s.Shields} / Shield Value: {s.ShieldValue} / Max Shields: {s.MaxShieldCount} / Energy Value: {s.EnergyValue}");
+            }
+            else
+            {
+                MainFile.Logger.Info($"Player with id {p.NetId} has no shield state");
+            }
+        }
+        
+        if (shieldState == null) return;
         
         // uses energy next turn power when enemy's turn since otherwise energy is lost
         if (combatState.CurrentSide == CombatSide.Enemy)
         {
-            PowerCmd.Apply<EnergyNextTurnPower>(new ThrowingPlayerChoiceContext(), target, shieldState.EnergyValue,
+            await PowerCmd.Apply<EnergyNextTurnPower>(new HookPlayerChoiceContext(player, player.NetId, GameActionType.Combat), target, shieldState.EnergyValue,
                 target, null,
                 silent: true);
         } else if (combatState.CurrentSide == CombatSide.Player)
         {
-            PlayerCmd.GainEnergy(shieldState.EnergyValue, player);
+            await PlayerCmd.GainEnergy(shieldState.EnergyValue, player);
         }
         
-        return Task.CompletedTask;
+        foreach (var p in combatState.Players)
+        {
+            var s = p.PlayerCombatState?.ShieldState();
+            if (s != null)
+            {
+                MainFile.Logger.Info($"Player with id {p.NetId} shield values after lost - Shields: {s.Shields} / Shield Value: {s.ShieldValue} / Max Shields: {s.MaxShieldCount} / Energy Value: {s.EnergyValue}");
+            }
+            else
+            {
+                MainFile.Logger.Info($"Player with id {p.NetId} has no shield state");
+            }
+        }
     }
 }
