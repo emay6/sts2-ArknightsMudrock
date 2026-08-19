@@ -34,42 +34,19 @@ public class MudrockShieldSingleton() : CustomSingletonModel(HookType.Combat), I
         var shieldState = playerCombatState.ShieldState()!;
         
         shieldState.Shields -= 1;
-        MudrockHooks.AfterShieldLost(combatState, player, dealer, props);
+        MudrockHooks.AfterShieldLost(new HookPlayerChoiceContext(player, player.NetId, GameActionType.Combat), player, dealer, props);
         return Math.Max(0, amount - shieldState.ShieldValue);
     }
 
     // default behavior upon losing shield (gaining energy)
-    public async Task AfterShieldLost(ICombatState combatState, Player player, Creature? source = null, ValueProp? props = null)
+    public async Task AfterShieldLost(PlayerChoiceContext choiceContext, Player player, Creature? source = null, ValueProp? props = null)
     {
+        var combatState = player.Creature.CombatState;
         var shieldState = player.PlayerCombatState?.ShieldState();
         var target = player.Creature;
         
-        foreach (var p in combatState.Players)
-        {
-            var s = p.PlayerCombatState?.ShieldState();
-            if (s != null)
-            {
-                MainFile.Logger.Info($"Player with id {p.NetId} shield values before lost - Shields: {s.Shields} / Shield Value: {s.ShieldValue} / Max Shields: {s.MaxShieldCount} / Energy Value: {s.EnergyValue}");
-            }
-            else
-            {
-                MainFile.Logger.Info($"Player with id {p.NetId} has no shield state");
-            }
-        }
-        
-        if (shieldState == null) return;
-        
-        // uses energy next turn power when enemy's turn since otherwise energy is lost
-        if (combatState.CurrentSide == CombatSide.Enemy)
-        {
-            await PowerCmd.Apply<EnergyNextTurnPower>(new HookPlayerChoiceContext(player, player.NetId, GameActionType.Combat), target, shieldState.EnergyValue,
-                target, null,
-                silent: true);
-        } else if (combatState.CurrentSide == CombatSide.Player)
-        {
-            await PlayerCmd.GainEnergy(shieldState.EnergyValue, player);
-        }
-        
+        if (combatState == null || shieldState == null) return;
+                
         foreach (var p in combatState.Players)
         {
             var s = p.PlayerCombatState?.ShieldState();
@@ -81,6 +58,17 @@ public class MudrockShieldSingleton() : CustomSingletonModel(HookType.Combat), I
             {
                 MainFile.Logger.Info($"Player with id {p.NetId} has no shield state");
             }
+        }
+        
+        // uses energy next turn power when enemy's turn since otherwise energy is lost
+        if (combatState.CurrentSide == CombatSide.Enemy)
+        {
+            await PowerCmd.Apply<EnergyNextTurnPower>(new HookPlayerChoiceContext(player, player.NetId, GameActionType.Combat), target, shieldState.EnergyValue,
+                target, null,
+                silent: true);
+        } else if (combatState.CurrentSide == CombatSide.Player)
+        {
+            await PlayerCmd.GainEnergy(shieldState.EnergyValue, player);
         }
     }
 }

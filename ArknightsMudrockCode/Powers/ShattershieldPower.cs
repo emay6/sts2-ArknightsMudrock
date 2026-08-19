@@ -21,10 +21,10 @@ public class ShattershieldPower() : ArknightsMudrockPower, IAfterShieldLost
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new ShieldVar(0)];
 
-    public async Task AfterShieldLost(ICombatState combatState, Player player, Creature? source = null, ValueProp? props = null)
+    public async Task AfterShieldLost(PlayerChoiceContext choiceContext, Player player, Creature? source = null, ValueProp? props = null)
     {
         if (player != Owner.Player || source == null || !props.GetValueOrDefault().IsPoweredAttack()) return;
 
-        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), source, Amount, ValueProp.Unpowered, Owner, null);
+        await CreatureCmd.Damage(choiceContext, source, Amount, ValueProp.Unpowered, Owner, null);
     }
 }

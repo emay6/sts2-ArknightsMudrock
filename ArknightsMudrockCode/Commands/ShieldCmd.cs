@@ -5,7 +5,9 @@ using ArknightsMudrock.ArknightsMudrockCode.Hooks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Multiplayer;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 
 #endregion
 
@@ -33,7 +35,7 @@ public static class ShieldCmd
             if (shieldState?.Shields == 0) return;
             
             shieldState?.Shields -= amount;
-            await MudrockHooks.AfterShieldLost(player.Creature.CombatState, player, source);
+            await MudrockHooks.AfterShieldLost(new HookPlayerChoiceContext(player, player.NetId, GameActionType.Combat), player, source);
         }
     }
     

@@ -58,7 +58,7 @@ public class NaturesWard() : ArknightsMudrockCard(2,
         return Task.CompletedTask;
     }
 
-    public Task AfterShieldLost(ICombatState combatState, Player player, Creature? source = null, ValueProp? props = null)
+    public Task AfterShieldLost(PlayerChoiceContext choiceContext, Player player, Creature? source = null, ValueProp? props = null)
     {
         if (player != Owner) return Task.CompletedTask;
         UpdateEnergyCost();

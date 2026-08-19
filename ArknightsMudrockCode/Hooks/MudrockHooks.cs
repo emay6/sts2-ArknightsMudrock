@@ -4,6 +4,7 @@ using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.ValueProps;
 
 #endregion
@@ -17,8 +18,8 @@ public static class MudrockHooks
         return HookUtils.Dispatch<IAfterShieldGained>(combatState, model => model.AfterShieldGained(combatState, player));
     }
 
-    public static Task AfterShieldLost(ICombatState combatState, Player player, Creature? source, ValueProp? props = null)
+    public static Task AfterShieldLost(PlayerChoiceContext choiceContext, Player player, Creature? source, ValueProp? props = null)
     {
-        return HookUtils.Dispatch<IAfterShieldLost>(combatState, model => model.AfterShieldLost(combatState, player, source, props));
+        return HookUtils.Dispatch<IAfterShieldLost>(player.Creature.CombatState, model => model.AfterShieldLost(choiceContext, player, source, props));
     }
 }
