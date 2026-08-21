@@ -31,9 +31,12 @@ public class QuakePower() : ArknightsMudrockPower
         var targets = creatures.Where(c => c.IsHittable).ToList();
         // temp solution for palpitations
         var palpitationsActive = Applier?.HasPower<PalpitationsPower>() ?? false;
-        foreach (var creature in (palpitationsActive ? targets : targets.Where(c => c != Owner)))
+        // make quake do damage to all enemies, and instead have palpiations have an extra hit
+        foreach (var creature in targets/*(palpitationsActive ? targets : targets.Where(c => c != Owner))*/)
         {
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), creature, Amount, ValueProp.Unpowered, Applier, null);
+            if (palpitationsActive)
+                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), creature, Amount, ValueProp.Unpowered, Applier, null);
         }
         
         if (Owner.IsAlive)
