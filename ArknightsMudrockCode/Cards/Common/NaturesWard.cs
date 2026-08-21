@@ -70,11 +70,11 @@ public class NaturesWard() : ArknightsMudrockCard(2,
         int shieldCount = Owner.PlayerCombatState?.ShieldState()?.Shields ?? 0;
         if (shieldCount == 0)
         {
-            EnergyCost.SetThisTurn(EnergyCost.Canonical - 1);
+            EnergyCost.SetThisTurn(EnergyCost.GetWithModifiers(CostModifiers.All) - 1);
         } 
         else
         {
-            EnergyCost.SetThisTurn(EnergyCost.Canonical);
+            EnergyCost.SetThisTurn(EnergyCost.GetWithModifiers(CostModifiers.All));
         }
     }
 }
