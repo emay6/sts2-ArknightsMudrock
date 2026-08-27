@@ -19,7 +19,7 @@ public class Obsidian() : ArknightsMudrockCard(1,
     TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new PowerVar<DensityPower>(3),
+        new PowerVar<DensityPower>(2),
         new CalculationBaseVar(0),
         new ExtraDamageVar(3),
         new CalculatedDamageVar(ValueProp.Move)
@@ -39,6 +39,6 @@ public class Obsidian() : ArknightsMudrockCard(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Power<DensityPower>().UpgradeValueBy(1);
+        DynamicVars.ExtraDamage.UpgradeValueBy(1);
     }
 }

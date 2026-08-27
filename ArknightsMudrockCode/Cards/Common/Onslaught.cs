@@ -17,13 +17,17 @@ public class Onslaught() : ArknightsMudrockCard(3,
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [MudrockKeywords.Inertial];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(21, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DamageVar(21, ValueProp.Move),
+        new CardsVar(2)
+    ];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_attack_slash").Execute(choiceContext);
+        await CommonActions.Draw(this, choiceContext);
     }
 
     protected override void OnUpgrade()
