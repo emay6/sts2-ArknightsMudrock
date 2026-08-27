@@ -142,7 +142,7 @@
   "ARKNIGHTSMUDROCK-MUDDY_ROCK.title": "Muddy Rock",
   "ARKNIGHTSMUDROCK-CONCUSSING_BLOW.description": "Deal {Damage:diff()} damage. Apply {WeakPower:diff()} [gold]Weak[/gold].",
   "ARKNIGHTSMUDROCK-CONCUSSING_BLOW.title": "Concussing Blow",
-  "ARKNIGHTSMUDROCK-ROCKFALL.description": "Deal {Damage:diff()} damage.\nAdd a [gold]Giant Rock[/gold] into your [gold]Hand[/gold].",
+  "ARKNIGHTSMUDROCK-ROCKFALL.description": "Deal {Damage:diff()} damage to a random enemy.\nAdd a [gold]{IfUpgraded:show:Giant Rock+|Giant Rock}[/gold] into your [gold]Draw Pile[/gold].",
   "ARKNIGHTSMUDROCK-ROCKFALL.title": "Rockfall",
   "ARKNIGHTSMUDROCK-CRAG_SPLITTER.description": "Deal {Damage:diff()} damage to ALL enemies.\nNext turn, gain {Energy:energyIcons()}.",
   "ARKNIGHTSMUDROCK-CRAG_SPLITTER.title": "Crag Splitter",

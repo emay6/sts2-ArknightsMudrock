@@ -17,7 +17,7 @@ public class Rockfall() : ArknightsMudrockCard(1,
     CardType.Attack, CardRarity.Common,
     TargetType.RandomEnemy)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(11, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
     
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<GiantRock>()];
 
@@ -26,12 +26,13 @@ public class Rockfall() : ArknightsMudrockCard(1,
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_attack_blunt").Execute(choiceContext);
-        if (CombatState != null)
-            await CardPileCmd.AddGeneratedCardToCombat(CombatState.CreateCard<GiantRock>(Owner), PileType.Hand, Owner);
-    }
 
-    protected override void OnUpgrade()
-    {
-        DynamicVars.Damage.UpgradeValueBy(3);
+        if (CombatState != null)
+        {
+            var rockCard = CombatState.CreateCard<GiantRock>(Owner);
+            if (IsUpgraded) CardCmd.Upgrade(rockCard);
+            CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(rockCard, PileType.Draw, Owner));
+        }
+            
     }
 }
