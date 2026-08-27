@@ -35,6 +35,6 @@ public class HammeringTime() : ArknightsMudrockCard(1,
 
     protected override void OnUpgrade()
     {
-        RemoveKeyword(CardKeyword.Ethereal);
+        EnergyCost.UpgradeBy(-1);
     }
 }

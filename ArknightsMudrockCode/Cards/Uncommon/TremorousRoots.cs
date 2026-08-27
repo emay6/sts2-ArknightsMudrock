@@ -14,17 +14,17 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
-public class TremorousRoots() : ArknightsMudrockCard(1,
+public class TremorousRoots() : ArknightsMudrockCard(2,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.AllEnemies)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new PowerVar<WeakPower>(1),
+        new PowerVar<VulnerablePower>(1),
         new PowerVar<QuakePower>(8)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromPower<WeakPower>(),
+        HoverTipFactory.FromPower<VulnerablePower>(),
         HoverTipFactory.FromPower<QuakePower>()
     ];
 
@@ -37,7 +37,7 @@ public class TremorousRoots() : ArknightsMudrockCard(1,
         {
             foreach (var target in CombatState.HittableEnemies)
             {
-                await CommonActions.Apply<WeakPower>(choiceContext, target, this);
+                await CommonActions.Apply<VulnerablePower>(choiceContext, target, this);
                 await CommonActions.Apply<QuakePower>(choiceContext, target, this);
             }
         }
@@ -45,6 +45,6 @@ public class TremorousRoots() : ArknightsMudrockCard(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Power<WeakPower>().UpgradeValueBy(1);
+        DynamicVars.Power<VulnerablePower>().UpgradeValueBy(1);
     }
 }

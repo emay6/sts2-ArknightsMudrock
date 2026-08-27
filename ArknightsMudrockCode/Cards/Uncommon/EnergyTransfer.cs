@@ -1,5 +1,6 @@
 #region
 
+using ArknightsMudrock.ArknightsMudrockCode.Keywords;
 using ArknightsMudrock.ArknightsMudrockCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -11,7 +12,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
-public class EnergyTransfer() : ArknightsMudrockCard(1,
+public class EnergyTransfer() : ArknightsMudrockCard(0,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
@@ -39,6 +40,6 @@ public class EnergyTransfer() : ArknightsMudrockCard(1,
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        AddKeyword(MudrockKeywords.Inertial);
     }
 }

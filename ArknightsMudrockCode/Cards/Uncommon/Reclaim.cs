@@ -16,7 +16,7 @@ public class Reclaim() : ArknightsMudrockCard(0,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new ShieldVar(1),
-        new EnergyVar(2)
+        new EnergyVar(1)
     ];
 
     protected override async Task OnPlay(
@@ -24,13 +24,9 @@ public class Reclaim() : ArknightsMudrockCard(0,
         CardPlay play)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-
-        var shieldAmount = Owner.PlayerCombatState?.ShieldState()?.Shields ?? 0;
-        if (shieldAmount > 0)
-        {
-            await ShieldCmd.LoseShield(DynamicVars[ShieldVar.Key].IntValue, Owner, Owner.Creature, play);
-            await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
-        }
+        
+        await ShieldCmd.LoseShield(DynamicVars[ShieldVar.Key].IntValue, Owner, Owner.Creature, play);
+        await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
     }
 
     protected override void OnUpgrade()

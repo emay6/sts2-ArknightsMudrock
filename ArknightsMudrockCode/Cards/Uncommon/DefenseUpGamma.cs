@@ -17,7 +17,7 @@ public class DefenseUpGamma() : ArknightsMudrockCard(1,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DensityPower>(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DensityPower>(3)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<DensityPower>()];
 

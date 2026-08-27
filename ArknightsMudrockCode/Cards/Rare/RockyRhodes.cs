@@ -25,7 +25,7 @@ public class RockyRhodes() : ArknightsMudrockCard(1,
         CardPlay play)
     {
         var cards = await CardSelectCmd.FromCombatPile(choiceContext, PileType.Draw.GetPile(Owner), Owner,
-            new CardSelectorPrefs(SelectionScreenPrompt, 0, DynamicVars.Cards.IntValue),
+            new CardSelectorPrefs(SelectionScreenPrompt, DynamicVars.Cards.IntValue),
             c => c.IsTransformable);
 
         if (CombatState != null)

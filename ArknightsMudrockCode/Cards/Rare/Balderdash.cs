@@ -2,8 +2,10 @@
 
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
 #endregion
@@ -14,8 +16,8 @@ public class Balderdash() : ArknightsMudrockCard(7,
     CardType.Attack, CardRarity.Rare,
     TargetType.AnyEnemy)
 {
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
-    
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(100, ValueProp.Move)];
 
     protected override async Task OnPlay(
@@ -27,6 +29,17 @@ public class Balderdash() : ArknightsMudrockCard(7,
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Retain);
+        DynamicVars.Damage.UpgradeValueBy(12);
+    }
+
+    public override Task AfterFlush(PlayerChoiceContext choiceContext, Player player, IReadOnlyCollection<CardModel> flushedCards,
+        IReadOnlyCollection<CardModel> retainedCards)
+    {
+        if (player != Owner) return Task.CompletedTask;
+        var list = retainedCards.Where((c => c == this)).ToList();
+        if (list.Count == 0) return Task.CompletedTask;
+        
+        EnergyCost.AddThisCombat(-1);
+        return Task.CompletedTask;
     }
 }

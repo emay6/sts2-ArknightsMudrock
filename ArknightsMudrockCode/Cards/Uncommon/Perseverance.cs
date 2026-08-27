@@ -18,7 +18,7 @@ public class Perseverance() : ArknightsMudrockCard(2,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new ShieldVar(1),
-        new CardsVar(1)
+        new CardsVar(2)
     ];
 
     protected override async Task OnPlay(

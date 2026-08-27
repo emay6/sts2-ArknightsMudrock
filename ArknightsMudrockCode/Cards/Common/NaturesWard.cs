@@ -22,6 +22,8 @@ public class NaturesWard() : ArknightsMudrockCard(2,
     CardType.Skill, CardRarity.Common,
     TargetType.Self), IAfterShieldGained, IAfterShieldLost
 {
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain];
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [new ShieldVar(1)];
 
     protected override async Task OnPlay(

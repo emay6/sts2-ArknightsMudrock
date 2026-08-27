@@ -18,6 +18,8 @@ public class Unearth() : ArknightsMudrockCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<QuakePower>(5)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<QuakePower>()];
@@ -47,5 +49,6 @@ public class Unearth() : ArknightsMudrockCard(1,
     protected override void OnUpgrade()
     {
         DynamicVars.Power<QuakePower>().UpgradeValueBy(2);
+        RemoveKeyword(CardKeyword.Exhaust);
     }
 }

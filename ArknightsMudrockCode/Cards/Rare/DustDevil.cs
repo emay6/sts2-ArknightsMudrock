@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Rare;
 
-public class DustDevil() : ArknightsMudrockCard(4,
+public class DustDevil() : ArknightsMudrockCard(3,
     CardType.Attack, CardRarity.Rare,
     TargetType.AllEnemies)
 {
@@ -23,18 +23,21 @@ public class DustDevil() : ArknightsMudrockCard(4,
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(8, ValueProp.Move),
-        new CalculationBaseVar(0),
-        new CalculationExtraVar(1),
-        new CalculatedVar(CalculatedHitsKey).WithMultiplier((card, _) => card.Owner.Creature.GetPowerAmount<MomentumPower>())
+        new DynamicVar("HitCount", 3)
+        //new CalculationBaseVar(0),
+        //new CalculationExtraVar(1),
+        //new CalculatedVar(CalculatedHitsKey).WithMultiplier((card, _) => card.Owner.Creature.GetPowerAmount<MomentumPower>())
+        //new CalculatedVar(CalculatedHitsKey).WithMultiplier((card, _) => 3)
     ];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MomentumPower>()];
+    // protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MomentumPower>()];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        var numHits = (int)((CalculatedVar)DynamicVars[CalculatedHitsKey]).Calculate(play.Target);
+        // var numHits = (int)((CalculatedVar)DynamicVars[CalculatedHitsKey]).Calculate(play.Target);
+        var numHits = DynamicVars["HitCount"].IntValue;
         await CommonActions.CardAttack(this, play, hitCount: numHits, vfx: "vfx/vfx_giant_horizontal_slash").Execute(choiceContext);
     }
 

@@ -33,6 +33,6 @@ public class Upswing() : ArknightsMudrockCard(2,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4);
+        EnergyCost.UpgradeBy(-1);
     }
 }

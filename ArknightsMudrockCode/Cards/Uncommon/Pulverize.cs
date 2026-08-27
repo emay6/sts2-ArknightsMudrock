@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
-public class Behemoth() : ArknightsMudrockCard(3,
+public class Pulverize() : ArknightsMudrockCard(3,
     CardType.Attack, CardRarity.Uncommon,
     TargetType.AnyEnemy)
 {
@@ -22,10 +22,10 @@ public class Behemoth() : ArknightsMudrockCard(3,
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(4, ValueProp.Move),
         new RepeatVar(4),
-        new PowerVar<VulnerablePower>(1)
+        new PowerVar<WeakPower>(1)
     ];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<VulnerablePower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
@@ -33,12 +33,12 @@ public class Behemoth() : ArknightsMudrockCard(3,
     {
         await CommonActions.CardAttack(this, play, hitCount: DynamicVars.Repeat.IntValue, vfx: "vfx/vfx_attack_slash").Execute(choiceContext);
         if (play.Target != null)
-            await CommonActions.Apply<VulnerablePower>(choiceContext, play.Target, this);
+            await CommonActions.Apply<WeakPower>(choiceContext, play.Target, this);
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars.Repeat.UpgradeValueBy(1);
-        DynamicVars.Vulnerable.UpgradeValueBy(1);
+        DynamicVars.Weak.UpgradeValueBy(1);
     }
 }

@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Common;
 
-public class Pulverize() : ArknightsMudrockCard(4,
+public class Behemoth() : ArknightsMudrockCard(4,
     CardType.Attack, CardRarity.Common,
     TargetType.AnyEnemy)
 {

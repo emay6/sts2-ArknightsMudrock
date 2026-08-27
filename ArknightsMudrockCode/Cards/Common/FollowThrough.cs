@@ -17,7 +17,7 @@ public class FollowThrough() : ArknightsMudrockCard(2,
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [MudrockKeywords.Inertial];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(11, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(12, ValueProp.Move)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

@@ -7,10 +7,10 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
-namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
+namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Rare;
 
 public class WombOfTheColossi() : ArknightsMudrockCard(1,
-    CardType.Power, CardRarity.Uncommon,
+    CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [

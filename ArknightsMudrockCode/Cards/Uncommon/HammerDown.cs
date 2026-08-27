@@ -17,7 +17,7 @@ namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 public sealed class HammerDown : ArknightsMudrockCard
 {
     public HammerDown()
-        : base(3, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+        : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
     {
     }
 
@@ -27,7 +27,7 @@ public sealed class HammerDown : ArknightsMudrockCard
         {
             return [
                 new CalculationBaseVar(0M),
-                new ExtraDamageVar(14M),
+                new ExtraDamageVar(12M),
                 new CalculatedDamageVar(ValueProp.Move).WithMultiplier((Func<CardModel, Creature?, Decimal>) ((card, _) =>
                     CombatManager.Instance.History.CardPlaysFinished.Count<CardPlayFinishedEntry>(e =>
                         e.HappenedThisTurn(card.CombatState) &&

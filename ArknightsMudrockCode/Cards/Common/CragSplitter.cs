@@ -20,7 +20,7 @@ public class CragSplitter() : ArknightsMudrockCard(1,
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.Energy)];
     
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(7, ValueProp.Move),
+        new DamageVar(5, ValueProp.Move),
         new EnergyVar(1)
     ];
 

@@ -14,16 +14,16 @@ using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Rare;
 
-public class KazdelianArts() : ArknightsMudrockCard(1,
+public class KazdelianArts() : ArknightsMudrockCard(0,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new CardsVar(2),
-        new PowerVar<DensityPower>(4),
-        new PowerVar<VigorPower>(8)
+        new CardsVar(1),
+        new PowerVar<DensityPower>(3),
+        new PowerVar<VigorPower>(5)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
@@ -44,6 +44,6 @@ public class KazdelianArts() : ArknightsMudrockCard(1,
     protected override void OnUpgrade()
     {
         DynamicVars.Power<DensityPower>().UpgradeValueBy(1);
-        DynamicVars.Power<VigorPower>().UpgradeValueBy(2);
+        DynamicVars.Power<VigorPower>().UpgradeValueBy(3);
     }
 }

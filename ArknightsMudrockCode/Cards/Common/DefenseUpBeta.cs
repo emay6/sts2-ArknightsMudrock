@@ -17,7 +17,7 @@ public class DefenseUpBeta() : ArknightsMudrockCard(0,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DensityPower>(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DensityPower>(3)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<DensityPower>()];
 

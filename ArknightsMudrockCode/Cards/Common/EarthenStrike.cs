@@ -1,6 +1,7 @@
 #region
 
 using ArknightsMudrock.ArknightsMudrockCode.Powers;
+using BaseLib.Extensions;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -34,5 +35,6 @@ public class EarthenStrike() : ArknightsMudrockCard(1,
     protected override void OnUpgrade()
     {
         DynamicVars.Damage.UpgradeValueBy(2);
+        DynamicVars.Power<DensityPower>().UpgradeValueBy(1);
     }
 }

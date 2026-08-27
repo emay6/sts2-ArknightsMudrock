@@ -15,7 +15,7 @@ public class Steadfast() : ArknightsMudrockCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new ShieldVar(1)];
 
@@ -29,6 +29,6 @@ public class Steadfast() : ArknightsMudrockCard(1,
 
     protected override void OnUpgrade()
     {
-        RemoveKeyword(CardKeyword.Ethereal);
+        AddKeyword(CardKeyword.Innate);
     }
 }

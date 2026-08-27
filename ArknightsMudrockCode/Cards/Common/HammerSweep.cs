@@ -17,7 +17,7 @@ public class HammerSweep() : ArknightsMudrockCard(2,
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [MudrockKeywords.Inertial];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(9, ValueProp.Move)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

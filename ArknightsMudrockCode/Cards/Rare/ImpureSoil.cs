@@ -14,7 +14,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Rare;
 
-public class ImpureSoil() : ArknightsMudrockCard(1,
+public class ImpureSoil() : ArknightsMudrockCard(2,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {
