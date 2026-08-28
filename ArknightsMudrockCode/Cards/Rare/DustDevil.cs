@@ -27,7 +27,6 @@ public class DustDevil() : ArknightsMudrockCard(3,
         //new CalculationBaseVar(0),
         //new CalculationExtraVar(1),
         //new CalculatedVar(CalculatedHitsKey).WithMultiplier((card, _) => card.Owner.Creature.GetPowerAmount<MomentumPower>())
-        //new CalculatedVar(CalculatedHitsKey).WithMultiplier((card, _) => 3)
     ];
 
     // protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MomentumPower>()];

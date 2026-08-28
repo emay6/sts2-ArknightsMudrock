@@ -15,7 +15,7 @@ public class ChildOfSoilPower() : ArknightsMudrockPower
         PowerType.Buff;
 
     public override PowerStackType StackType =>
-        PowerStackType.Counter;
+        PowerStackType.Single;
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new ShieldVar(0)];
 
@@ -28,7 +28,7 @@ public class ChildOfSoilPower() : ArknightsMudrockPower
         if (Owner.HasPower<MomentumPower>() && Owner.IsPlayer)
         {
             Flash();
-            await ShieldCmd.GainShield(Amount, Owner.Player!);
+            await ShieldCmd.GainShield(Owner.GetPowerAmount<MomentumPower>(), Owner.Player!);
         }
     }
 }

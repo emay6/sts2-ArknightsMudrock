@@ -14,7 +14,7 @@ public class SeismicWave() : ArknightsMudrockCard(1,
     TargetType.AllEnemies)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(14, ValueProp.Move),
+        new DamageVar(11, ValueProp.Move),
         new ShieldVar(1)
     ];
 

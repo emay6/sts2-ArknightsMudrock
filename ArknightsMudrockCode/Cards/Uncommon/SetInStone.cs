@@ -2,6 +2,7 @@ using ArknightsMudrock.ArknightsMudrockCode.Cards;
 using ArknightsMudrock.ArknightsMudrockCode.Commands;
 using ArknightsMudrock.ArknightsMudrockCode.Powers;
 using ArknightsMudrock.ArknightsMudrockCode.Variables;
+using BaseLib.Extensions;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -17,11 +18,14 @@ public class SetInStone() : ArknightsMudrockCard(1,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new ShieldVar(1),
-        new CardsVar(2),
+        new PowerVar<DensityPower>(2),
         new PowerVar<NoMomentumPower>(1)
     ];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MomentumPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromPower<DensityPower>(),
+        HoverTipFactory.FromPower<MomentumPower>()
+    ];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
@@ -29,12 +33,13 @@ public class SetInStone() : ArknightsMudrockCard(1,
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await ShieldCmd.GainShield(DynamicVars[ShieldVar.Key].IntValue, Owner, play);
-        await CommonActions.Draw(this, choiceContext);
+        //await CommonActions.Draw(this, choiceContext);
+        await CommonActions.ApplySelf<DensityPower>(choiceContext, this);
         await CommonActions.ApplySelf<NoMomentumPower>(choiceContext, this);
     }
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Cards.UpgradeValueBy(1);
+        DynamicVars.Power<DensityPower>().UpgradeValueBy(1);
     }
 }

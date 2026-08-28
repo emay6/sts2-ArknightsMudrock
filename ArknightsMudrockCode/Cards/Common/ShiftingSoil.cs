@@ -15,17 +15,22 @@ public class ShiftingSoil() : ArknightsMudrockCard(1,
     CardType.Skill, CardRarity.Common,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(3)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new CardsVar(3),
+        new DynamicVar("DiscardAmount", 2)
+    ];
     
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        int cardCount = DynamicVars.Cards.IntValue;
-        await CardPileCmd.Draw(choiceContext, cardCount, Owner);
+        int drawCount = DynamicVars.Cards.IntValue;
+        int discardCount = DynamicVars["DiscardAmount"].IntValue;
+            
+        await CardPileCmd.Draw(choiceContext, drawCount, Owner);
 
         IEnumerable<CardModel> cardsToDiscard = await CardSelectCmd.FromHandForDiscard(
             choiceContext,
             Owner,
-            new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt, cardCount),
+            new CardSelectorPrefs(CardSelectorPrefs.DiscardSelectionPrompt, discardCount),
             null,
             this);
 

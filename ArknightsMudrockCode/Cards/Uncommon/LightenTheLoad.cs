@@ -7,13 +7,13 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
-public class LightenTheLoad() : ArknightsMudrockCard(2,
+public class LightenTheLoad() : ArknightsMudrockCard(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(0)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

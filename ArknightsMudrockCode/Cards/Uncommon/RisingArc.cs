@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
-public class RisingArc() : ArknightsMudrockCard(2,
+public class RisingArc() : ArknightsMudrockCard(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {

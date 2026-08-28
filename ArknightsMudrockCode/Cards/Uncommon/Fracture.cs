@@ -1,5 +1,6 @@
 #region
 
+using ArknightsMudrock.ArknightsMudrockCode.Keywords;
 using ArknightsMudrock.ArknightsMudrockCode.Powers;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -22,8 +23,6 @@ public class Fracture() : ArknightsMudrockCard(1,
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((_, target) => target?.GetPowerAmount<QuakePower>() ?? 0)
     ];
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
-
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<QuakePower>()];
 
     protected override async Task OnPlay(
@@ -35,6 +34,6 @@ public class Fracture() : ArknightsMudrockCard(1,
 
     protected override void OnUpgrade()
     {
-        RemoveKeyword(CardKeyword.Exhaust);
+        AddKeyword(MudrockKeywords.Inertial);
     }
 }

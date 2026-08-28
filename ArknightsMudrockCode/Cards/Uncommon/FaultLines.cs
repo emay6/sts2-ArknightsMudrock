@@ -1,5 +1,7 @@
 #region
 
+using ArknightsMudrock.ArknightsMudrockCode.Powers;
+using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -14,19 +16,19 @@ public class FaultLines() : ArknightsMudrockCard(0,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(2)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new EnergyVar(2),
+        new PowerVar<QuakePower>(5)
+    ];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(CardKeyword.Exhaust)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<QuakePower>()];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
-        
-        var cardToExhaust = Owner.RunState.Rng.CombatCardSelection.NextItem(PileType.Hand.GetPile(Owner).Cards);
-        if  (cardToExhaust != null) 
-            await CardCmd.Exhaust(choiceContext, cardToExhaust);
+        await CommonActions.ApplySelf<QuakePower>(choiceContext, this);
     }
 
     protected override void OnUpgrade()

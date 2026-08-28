@@ -1,27 +1,19 @@
-#region
-
 using ArknightsMudrock.ArknightsMudrockCode.Commands;
 using ArknightsMudrock.ArknightsMudrockCode.Variables;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Rooms;
-
-#endregion
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Relics;
 
-public class ClayDoll() : ArknightsMudrockRelic
+public class ColossusDoll() : ArknightsMudrockRelic
 {
     public override RelicRarity Rarity =>
         RelicRarity.Starter;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new ShieldVar(1)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new ShieldVar(3)];
 
-    public override RelicModel? GetUpgradeReplacement() => ModelDb.Relic<ColossusDoll>();
-    
     public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
     {
         if (!participants.Contains(Owner.Creature) || Owner.PlayerCombatState!.TurnNumber > 1)
