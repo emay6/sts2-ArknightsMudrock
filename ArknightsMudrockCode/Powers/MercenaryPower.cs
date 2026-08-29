@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Powers;
 
-public class RoyalHeritagePower() : ArknightsMudrockPower
+public class MercenaryPower() : ArknightsMudrockPower
 {
     public override PowerType Type =>
         PowerType.Buff;

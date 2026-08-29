@@ -12,11 +12,11 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
-public class RoyalHeritage() : ArknightsMudrockCard(3,
+public class Mercenary() : ArknightsMudrockCard(3,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<RoyalHeritagePower>(1)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<Powers.MercenaryPower>(1)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MomentumPower>()];
 
@@ -25,7 +25,7 @@ public class RoyalHeritage() : ArknightsMudrockCard(3,
         CardPlay play)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
-        await CommonActions.ApplySelf<RoyalHeritagePower>(choiceContext, this);
+        await CommonActions.ApplySelf<Powers.MercenaryPower>(choiceContext, this);
     }
 
     protected override void OnUpgrade()

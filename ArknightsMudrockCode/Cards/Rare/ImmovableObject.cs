@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Rare;
 
-public class UnstoppableForce() : ArknightsMudrockCard(5,
+public class ImmovableObject() : ArknightsMudrockCard(5,
     CardType.Attack, CardRarity.Rare,
     TargetType.AnyEnemy)
 {
