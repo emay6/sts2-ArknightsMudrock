@@ -1,6 +1,7 @@
 #region
 
 using ArknightsMudrock.ArknightsMudrockCode.Powers;
+using BaseLib.Extensions;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -12,11 +13,11 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
-public class Mercenary() : ArknightsMudrockCard(3,
+public class Mercenary() : ArknightsMudrockCard(2,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<Powers.MercenaryPower>(1)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MercenaryPower>(1)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MomentumPower>()];
 
@@ -25,11 +26,11 @@ public class Mercenary() : ArknightsMudrockCard(3,
         CardPlay play)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
-        await CommonActions.ApplySelf<Powers.MercenaryPower>(choiceContext, this);
+        await CommonActions.ApplySelf<MercenaryPower>(choiceContext, this);
     }
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars.Power<MercenaryPower>().UpgradeValueBy(1);
     }
 }

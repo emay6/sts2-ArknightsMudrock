@@ -1,6 +1,7 @@
 #region
 
 using ArknightsMudrock.ArknightsMudrockCode.Cards.Basic;
+using ArknightsMudrock.ArknightsMudrockCode.Cards.Common;
 using ArknightsMudrock.ArknightsMudrockCode.Extensions;
 using ArknightsMudrock.ArknightsMudrockCode.Relics;
 using BaseLib.Abstracts;
@@ -35,11 +36,11 @@ public class ArknightsMudrock : PlaceholderCharacterModel
 		ModelDb.Card<StrikeMudrock>(),
 		ModelDb.Card<StrikeMudrock>(),
 		ModelDb.Card<StrikeMudrock>(),
-		ModelDb.Card<StrikeMudrock>(),
 		ModelDb.Card<DefendMudrock>(),
 		ModelDb.Card<DefendMudrock>(),
 		ModelDb.Card<DefendMudrock>(),
-		ModelDb.Card<Upswing>()
+		ModelDb.Card<Upswing>(),
+		ModelDb.Card<Steadfast>()
 	];
 
 	public override IReadOnlyList<RelicModel> StartingRelics =>

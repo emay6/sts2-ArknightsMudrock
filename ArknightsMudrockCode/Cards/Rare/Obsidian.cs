@@ -39,6 +39,6 @@ public class Obsidian() : ArknightsMudrockCard(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.ExtraDamage.UpgradeValueBy(1);
+        DynamicVars.ExtraDamage.UpgradeValueBy(2);
     }
 }

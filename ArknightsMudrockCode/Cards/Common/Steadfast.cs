@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Common;
 
 public class Steadfast() : ArknightsMudrockCard(1,
-    CardType.Skill, CardRarity.Common,
+    CardType.Skill, CardRarity.Basic,
     TargetType.Self)
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
@@ -29,6 +29,6 @@ public class Steadfast() : ArknightsMudrockCard(1,
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
+        RemoveKeyword(CardKeyword.Exhaust);
     }
 }

@@ -14,9 +14,11 @@ public class EarthsWisdom() : ArknightsMudrockCard(2,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new CalculationBaseVar(0),
-        new CalculationExtraVar(1),
+        new CalculationExtraVar(2),
         new CalculatedVar("StrengthGain").WithMultiplier((card, _) => card.Owner.PlayerCombatState?.ShieldState()?.Shields ?? 0),
         new ShieldVar(0)
     ];

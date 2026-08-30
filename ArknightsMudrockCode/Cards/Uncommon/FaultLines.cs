@@ -18,7 +18,7 @@ public class FaultLines() : ArknightsMudrockCard(0,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new EnergyVar(2),
-        new PowerVar<QuakePower>(5)
+        new PowerVar<QuakePower>(4)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<QuakePower>()];

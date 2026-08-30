@@ -17,7 +17,7 @@ public class Cultivate() : ArknightsMudrockCard(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DensityPower>(1)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DensityPower>(2)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<DensityPower>()];
     

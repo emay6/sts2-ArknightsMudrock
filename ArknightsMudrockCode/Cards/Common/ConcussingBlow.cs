@@ -17,7 +17,7 @@ public class ConcussingBlow() : ArknightsMudrockCard(1,
     TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(7, ValueProp.Move),
+        new DamageVar(9, ValueProp.Move),
         new PowerVar<WeakPower>(1)
     ];
 
@@ -34,6 +34,7 @@ public class ConcussingBlow() : ArknightsMudrockCard(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3);
+        DynamicVars.Damage.UpgradeValueBy(2);
+        DynamicVars.Weak.UpgradeValueBy(1);
     }
 }

@@ -1,6 +1,8 @@
 #region
 
+using ArknightsMudrock.ArknightsMudrockCode.Extensions;
 using BaseLib.Abstracts;
+using BaseLib.Extensions;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -25,6 +27,9 @@ public abstract class TemporaryDensityPower : CustomPowerModel, ITemporaryPower
     public abstract AbstractModel OriginModel { get; }
 
     public PowerModel InternallyAppliedPower => ModelDb.Power<DensityPower>();
+    
+    public override string CustomPackedIconPath => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".PowerImagePath();
+    public override string CustomBigIconPath => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".BigPowerImagePath();
     
     protected virtual bool IsPositive => true;
     

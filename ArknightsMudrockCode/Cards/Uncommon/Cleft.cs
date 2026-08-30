@@ -17,7 +17,7 @@ public class Cleft() : ArknightsMudrockCard(1,
     CardType.Attack, CardRarity.Uncommon,
     TargetType.AnyEnemy)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(11, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(13, ValueProp.Move)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Debris>()];
 
@@ -32,6 +32,6 @@ public class Cleft() : ArknightsMudrockCard(1,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3);
+        DynamicVars.Damage.UpgradeValueBy(4);
     }
 }

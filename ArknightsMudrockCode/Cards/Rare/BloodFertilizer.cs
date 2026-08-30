@@ -3,6 +3,7 @@
 using ArknightsMudrock.ArknightsMudrockCode.Commands;
 using ArknightsMudrock.ArknightsMudrockCode.Variables;
 using BaseLib.Utils;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -17,9 +18,11 @@ public class BloodFertilizer() : ArknightsMudrockCard(3,
     CardType.Attack, CardRarity.Rare,
     TargetType.AnyEnemy)
 {
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(27, ValueProp.Move),
-        new ShieldVar(1)
+        new HealVar(5)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
@@ -34,8 +37,8 @@ public class BloodFertilizer() : ArknightsMudrockCard(3,
         {
             var isFatal = play.Target.Powers.All(p => p.ShouldOwnerDeathTriggerFatal());
             var attack = await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_attack_slash").Execute(choiceContext);
-            if (isFatal && attack.Results.SelectMany(r => r).Any(dr => dr.WasTargetKilled)) 
-                await ShieldCmd.GainShield(DynamicVars[ShieldVar.Key].IntValue, Owner, play);
+            if (isFatal && attack.Results.SelectMany(r => r).Any(dr => dr.WasTargetKilled))
+                await CreatureCmd.Heal(Owner.Creature, DynamicVars.Heal.BaseValue);
         }
     }
 

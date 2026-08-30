@@ -12,5 +12,5 @@ namespace ArknightsMudrock.ArknightsMudrockCode.Hooks;
 
 public interface IAfterShieldLost
 {
-    public Task AfterShieldLost(PlayerChoiceContext choiceContext, Player player, Creature? source = null, ValueProp? props = null);
+    public Task AfterShieldLost(PlayerChoiceContext choiceContext, Player player, int amount, Creature? source = null, ValueProp? props = null);
 }

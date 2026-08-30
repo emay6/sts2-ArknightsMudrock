@@ -29,7 +29,7 @@ public class Balderdash() : ArknightsMudrockCard(7,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(12);
+        EnergyCost.UpgradeBy(-1);
     }
 
     public override Task AfterFlush(PlayerChoiceContext choiceContext, Player player, IReadOnlyCollection<CardModel> flushedCards,

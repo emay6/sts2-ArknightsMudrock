@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 
 #endregion
 
@@ -29,6 +30,14 @@ public class ArmyOfOne() : ArknightsMudrockCard(1,
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
         await CommonActions.ApplySelf<ArmyOfOnePower>(choiceContext, this, DynamicVars.Power<DensityPower>().BaseValue);
+    }
+
+    public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(CardModel card, bool isAutoPlay,
+        ResourceInfo resources, PileType pileType, CardPilePosition position)
+    {
+        if (card != this) return (pileType, position);
+
+        return (PileType.Draw, CardPilePosition.Top);
     }
 
     protected override void OnUpgrade()

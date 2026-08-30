@@ -24,7 +24,7 @@ public class WombOfTheColossiPower() : ArknightsMudrockPower, IAfterShieldLost
     protected override IEnumerable<DynamicVar> CanonicalVars => [new ShieldVar(0)];
 
 
-    public async Task AfterShieldLost(PlayerChoiceContext choiceContext, Player player, Creature? source = null, ValueProp? props = null)
+    public async Task AfterShieldLost(PlayerChoiceContext choiceContext, Player player, int amount, Creature? source = null, ValueProp? props = null)
     {
         if (player != Owner.Player) return;
 
@@ -38,7 +38,7 @@ public class WombOfTheColossiPower() : ArknightsMudrockPower, IAfterShieldLost
         }
         else if (CombatState.CurrentSide == CombatSide.Player)
         {
-            await CardPileCmd.Draw(choiceContext, Amount, player);
+            await CardPileCmd.Draw(choiceContext, Amount * amount, player);
         }
     }
 }

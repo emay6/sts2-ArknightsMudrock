@@ -16,7 +16,7 @@ public class Reclaim() : ArknightsMudrockCard(0,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new ShieldVar(1),
-        new EnergyVar(1)
+        new EnergyVar(2)
     ];
 
     protected override async Task OnPlay(

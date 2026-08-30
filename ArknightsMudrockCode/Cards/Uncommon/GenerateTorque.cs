@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 #endregion
 
@@ -18,14 +19,21 @@ public class GenerateTorque() : ArknightsMudrockCard(0,
 {
     protected override bool HasEnergyCostX => true;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MomentumPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromPower<MomentumPower>(), 
+        HoverTipFactory.FromPower<StrengthPower>()
+    ];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        if (ResolveEnergyXValue() > 0)
+        var amount = ResolveEnergyXValue() + (IsUpgraded ? 1 : 0);
+        if (amount > 0)
+        {
             await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
+            await CommonActions.ApplySelf<StrengthPower>(choiceContext, this, amount);
+        }
     }
 
     // work around so you still get momentum
@@ -33,14 +41,9 @@ public class GenerateTorque() : ArknightsMudrockCard(0,
     {
         if (cardPlay.Card == this)
         {
-            int amount = ResolveEnergyXValue();
+            int amount = ResolveEnergyXValue() + (IsUpgraded ? 1 : 0);
             if (amount > 0)
                 await CommonActions.ApplySelf<MomentumPower>(choiceContext, this, amount);
         }
-    }
-
-    protected override void OnUpgrade()
-    {
-        AddKeyword(MudrockKeywords.Inertial);
     }
 }

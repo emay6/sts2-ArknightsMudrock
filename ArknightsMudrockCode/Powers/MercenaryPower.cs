@@ -36,7 +36,7 @@ public class MercenaryPower() : ArknightsMudrockPower
         if (target != Owner || power is not MomentumPower || GetInternalData<Data>().gainedMomentumThisTurn >= Amount) return 0;
         
         ++GetInternalData<Data>().gainedMomentumThisTurn;
-        return 1;
+        return Amount;
     }
 
     public override Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)

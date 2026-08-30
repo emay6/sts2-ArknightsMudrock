@@ -40,5 +40,6 @@ public class ShiftingSoil() : ArknightsMudrockCard(1,
     protected override void OnUpgrade()
     {
         DynamicVars.Cards.UpgradeValueBy(1);
+        DynamicVars["DiscardAmount"].UpgradeValueBy(1);
     }
 }

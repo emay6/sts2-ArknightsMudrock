@@ -19,7 +19,7 @@ public class RubbleRain() : ArknightsMudrockCard(2,
     TargetType.RandomEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(9, ValueProp.Move),
+        new DamageVar(16, ValueProp.Move),
         /*new CalculationBaseVar(0),
         new CalculationExtraVar(1),
         new CalculatedVar("HitCount").WithMultiplier((card, _) => MudrockUtils.GetDeckInCombat(Owner).Count(c => c.IsTransformable && c is Debris or GiantRock))*/
@@ -73,6 +73,6 @@ public class RubbleRain() : ArknightsMudrockCard(2,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3);
+        DynamicVars.Damage.UpgradeValueBy(4);
     }
 }

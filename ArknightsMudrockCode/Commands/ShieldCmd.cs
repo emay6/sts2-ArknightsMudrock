@@ -35,7 +35,7 @@ public static class ShieldCmd
             if (shieldState?.Shields == 0) return;
             
             shieldState?.Shields -= amount;
-            await MudrockHooks.AfterShieldLost(new HookPlayerChoiceContext(player, player.NetId, GameActionType.Combat), player, source);
+            await MudrockHooks.AfterShieldLost(new HookPlayerChoiceContext(player, player.NetId, GameActionType.Combat), player, amount, source);
         }
     }
     

@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Models.Cards;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
-public class SoilsEmbrace() : ArknightsMudrockCard(1,
+public class SoilsEmbrace() : ArknightsMudrockCard(0,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
@@ -41,6 +41,6 @@ public class SoilsEmbrace() : ArknightsMudrockCard(1,
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars[ShieldVar.Key].UpgradeValueBy(1);
     }
 }

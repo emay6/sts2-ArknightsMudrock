@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
-public class Pressure() : ArknightsMudrockCard(2,
+public class Pressure() : ArknightsMudrockCard(1,
     CardType.Attack, CardRarity.Uncommon,
     TargetType.AnyEnemy)
 {
@@ -38,6 +38,6 @@ public class Pressure() : ArknightsMudrockCard(2,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4);
+        DynamicVars.Damage.UpgradeValueBy(3);
     }
 }

@@ -6,16 +6,17 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 #endregion
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
-public class HammeringTime() : ArknightsMudrockCard(1,
+public class HammeringTime() : ArknightsMudrockCard(0,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(MudrockKeywords.Inertial)];
 
@@ -24,7 +25,7 @@ public class HammeringTime() : ArknightsMudrockCard(1,
         CardPlay play)
     {
         var cardToInertial = (await CardSelectCmd.FromHand(choiceContext, Owner,
-            new CardSelectorPrefs(SelectionScreenPrompt, 1),
+            new CardSelectorPrefs(SelectionScreenPrompt, DynamicVars.Cards.IntValue),
             c => !c.Keywords.Contains(MudrockKeywords.Inertial), this)).FirstOrDefault();
         
         if (cardToInertial == null) return;
@@ -35,6 +36,6 @@ public class HammeringTime() : ArknightsMudrockCard(1,
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        DynamicVars.Cards.UpgradeValueBy(1);
     }
 }

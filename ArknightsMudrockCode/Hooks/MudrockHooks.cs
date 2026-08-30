@@ -18,8 +18,8 @@ public static class MudrockHooks
         return HookUtils.Dispatch<IAfterShieldGained>(combatState, model => model.AfterShieldGained(combatState, player));
     }
 
-    public static Task AfterShieldLost(PlayerChoiceContext choiceContext, Player player, Creature? source, ValueProp? props = null)
+    public static Task AfterShieldLost(PlayerChoiceContext choiceContext, Player player, int amount, Creature? source, ValueProp? props = null)
     {
-        return HookUtils.Dispatch<IAfterShieldLost>(player.Creature.CombatState, model => model.AfterShieldLost(choiceContext, player, source, props));
+        return HookUtils.Dispatch<IAfterShieldLost>(player.Creature.CombatState, model => model.AfterShieldLost(choiceContext, player, amount, source, props));
     }
 }

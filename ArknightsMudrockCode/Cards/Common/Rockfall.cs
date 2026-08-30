@@ -19,7 +19,7 @@ public class Rockfall() : ArknightsMudrockCard(1,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(6, ValueProp.Move)];
     
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<GiantRock>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<GiantRock>(IsUpgraded)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
@@ -31,7 +31,7 @@ public class Rockfall() : ArknightsMudrockCard(1,
         {
             var rockCard = CombatState.CreateCard<GiantRock>(Owner);
             if (IsUpgraded) CardCmd.Upgrade(rockCard);
-            CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(rockCard, PileType.Draw, Owner));
+            CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(rockCard, PileType.Hand, Owner));
         }
             
     }

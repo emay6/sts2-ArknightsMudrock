@@ -34,12 +34,12 @@ public class MudrockShieldSingleton() : CustomSingletonModel(HookType.Combat), I
         var shieldState = playerCombatState.ShieldState()!;
         
         shieldState.Shields -= 1;
-        MudrockHooks.AfterShieldLost(new HookPlayerChoiceContext(player, player.NetId, GameActionType.Combat), player, dealer, props);
+        MudrockHooks.AfterShieldLost(new HookPlayerChoiceContext(player, player.NetId, GameActionType.Combat), player, 1, dealer, props);
         return Math.Max(0, amount - shieldState.ShieldValue);
     }
 
     // default behavior upon losing shield (gaining energy)
-    public async Task AfterShieldLost(PlayerChoiceContext choiceContext, Player player, Creature? source = null, ValueProp? props = null)
+    public async Task AfterShieldLost(PlayerChoiceContext choiceContext, Player player, int amount, Creature? source = null, ValueProp? props = null)
     {
         var combatState = player.Creature.CombatState;
         var shieldState = player.PlayerCombatState?.ShieldState();
@@ -50,12 +50,13 @@ public class MudrockShieldSingleton() : CustomSingletonModel(HookType.Combat), I
         // uses energy next turn power when enemy's turn since otherwise energy is lost
         if (combatState.CurrentSide == CombatSide.Enemy)
         {
+            // hits will only ever reduce by one, so no extra calculation needed
             await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, target, shieldState.EnergyValue,
                 target, null,
                 silent: true);
         } else if (combatState.CurrentSide == CombatSide.Player)
         {
-            await PlayerCmd.GainEnergy(shieldState.EnergyValue, player);
+            await PlayerCmd.GainEnergy(shieldState.EnergyValue * amount, player);
         }
     }
 }

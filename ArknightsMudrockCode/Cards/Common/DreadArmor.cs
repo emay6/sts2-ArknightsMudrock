@@ -21,7 +21,7 @@ public class DreadArmor() : ArknightsMudrockCard(1,
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StrengthPower>()];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("StrengthLoss",2M)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("StrengthLoss",3)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
@@ -36,5 +36,5 @@ public class DreadArmor() : ArknightsMudrockCard(1,
         }
     }
     
-    protected override void OnUpgrade() => DynamicVars["StrengthLoss"].UpgradeValueBy(1M);
+    protected override void OnUpgrade() => DynamicVars["StrengthLoss"].UpgradeValueBy(1);
 }

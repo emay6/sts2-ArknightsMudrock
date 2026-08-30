@@ -13,10 +13,12 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Rare;
 
-public class MomentousShift() : ArknightsMudrockCard(3,
+public class MomentousShift() : ArknightsMudrockCard(2,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<MomentousShiftPower>(1)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(MudrockKeywords.Inertial)];
@@ -31,6 +33,6 @@ public class MomentousShift() : ArknightsMudrockCard(3,
 
     protected override void OnUpgrade()
     {
-        EnergyCost.UpgradeBy(-1);
+        RemoveKeyword(CardKeyword.Ethereal);
     }
 }

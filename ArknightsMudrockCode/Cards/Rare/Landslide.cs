@@ -14,8 +14,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Rare;
 
 public class Landslide() : ArknightsMudrockCard(3,
-    CardType.Attack, CardRarity.Rare,
-    TargetType.RandomEnemy)
+    CardType.Skill, CardRarity.Rare,
+    TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         //new DamageVar(7, ValueProp.Move),
@@ -39,7 +39,7 @@ public class Landslide() : ArknightsMudrockCard(3,
             CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(rockCard, PileType.Hand, Owner));
         }
 
-        await Cmd.CustomScaledWait(0.2f, 0.4f);
+        await Cmd.CustomScaledWait(0.3f, 0.6f);
 
         var giantRocks = MudrockUtils.GetDeckInCombat(Owner)
             .Where(c => c is GiantRock && !c.Keywords.Contains(CardKeyword.Unplayable));
