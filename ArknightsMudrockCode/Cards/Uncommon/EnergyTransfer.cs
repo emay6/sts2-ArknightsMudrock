@@ -4,6 +4,7 @@ using ArknightsMudrock.ArknightsMudrockCode.Keywords;
 using ArknightsMudrock.ArknightsMudrockCode.Powers;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
@@ -12,34 +13,31 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
-public class EnergyTransfer() : ArknightsMudrockCard(0,
+public class EnergyTransfer() : ArknightsMudrockCard(1,
     CardType.Skill, CardRarity.Uncommon,
     TargetType.Self)
 {
-    private const string EnergyGainKey = "EnergyGain";
-    
-    protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new CalculationBaseVar(0),
-        new CalculationExtraVar(1),
-        new CalculatedVar(EnergyGainKey).WithMultiplier((card, _) => card.Owner.Creature.GetPowerAmount<MomentumPower>())
-    ];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MomentumPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromKeyword(MudrockKeywords.Inertial)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        var amount = ((CalculatedVar) DynamicVars[EnergyGainKey]).Calculate(Owner.Creature);
-        if (amount > 0)
-        {
-            await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-            await PlayerCmd.GainEnergy(amount, Owner);
-        }
+        var card = CardFactory.GetDistinctForCombat(Owner,
+            Owner.Character.CardPool.GetUnlockedCards(Owner.UnlockState, Owner.RunState.CardMultiplayerConstraint)
+                .Where(c => c.Type == CardType.Attack && c.Keywords.Contains(MudrockKeywords.Inertial)), 1,
+            Owner.RunState.Rng.CombatCardGeneration).FirstOrDefault();
+
+        if (card == null) return;
+        
+        card.SetToFreeThisTurn();
+        await CardPileCmd.AddGeneratedCardToCombat(card, PileType.Hand, Owner);
     }
 
     protected override void OnUpgrade()
     {
-        AddKeyword(MudrockKeywords.Inertial);
+        EnergyCost.UpgradeBy(-1);
     }
 }

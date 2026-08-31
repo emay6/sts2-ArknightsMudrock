@@ -1,6 +1,7 @@
 #region
 
 using ArknightsMudrock.ArknightsMudrockCode.Powers;
+using BaseLib.Extensions;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -13,27 +14,24 @@ using MegaCrit.Sts2.Core.Models.Cards;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
-public class Sculptor() : ArknightsMudrockCard(2,
+public class Sculptor() : ArknightsMudrockCard(1,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new PowerVar<SculptorPower>(1),
         new CardsVar(1)
     ];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<GiantRock>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<GiantRock>(IsUpgraded)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
-        await CommonActions.ApplySelf<SculptorPower>(choiceContext, this);
-    }
-
-    protected override void OnUpgrade()
-    {
-        EnergyCost.UpgradeBy(-1);
+        if (IsUpgraded)
+            await CommonActions.ApplySelf<SculptorPlusPower>(choiceContext, this, DynamicVars.Cards.BaseValue);
+        else
+            await CommonActions.ApplySelf<SculptorPower>(choiceContext, this, DynamicVars.Cards.BaseValue);
     }
 }

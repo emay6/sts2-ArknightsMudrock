@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
-public class Tectonic() : ArknightsMudrockCard(1,
+public class Fortify() : ArknightsMudrockCard(1,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {

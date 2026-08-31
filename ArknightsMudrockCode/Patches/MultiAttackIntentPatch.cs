@@ -1,4 +1,6 @@
+using ArknightsMudrock.ArknightsMudrockCode.Extensions;
 using ArknightsMudrock.ArknightsMudrockCode.Powers;
+using ArknightsMudrock.ArknightsMudrockCode.Utils;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Localization;
@@ -10,11 +12,19 @@ namespace ArknightsMudrock.ArknightsMudrockCode.Patches;
 public class MultiAttackIntentPatch
 {
     [HarmonyPostfix]
-    private static void Postfix(MultiAttackIntent __instance, IEnumerable<Creature> targets, ref LocString __result)
+    private static void Postfix(MultiAttackIntent __instance, IEnumerable<Creature> targets, Creature owner, ref LocString __result)
     {
-        if (targets.Any(c => c.HasPower<RedirectPower>()))
+        var (hitCount, totalDamage) = MudrockUtils.CalculateRedirectData(__instance, targets, owner);
+        if (hitCount > 1) 
         {
-            __result.Add("Repeat", __instance.Repeats * 2);
+            __result.Add("Damage", (int)(totalDamage / hitCount.Value));
+            __result.Add("Repeat", hitCount.Value);
+        } 
+        else if (hitCount == 1)
+        {
+            LocString newIntentLabel = new LocString("intents", "FORMAT_DAMAGE_SINGLE");
+            newIntentLabel.Add("Damage", totalDamage);
+            __result = newIntentLabel;
         }
     }
 }

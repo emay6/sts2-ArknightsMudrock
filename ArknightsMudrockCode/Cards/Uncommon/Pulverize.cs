@@ -2,10 +2,13 @@
 
 using ArknightsMudrock.ArknightsMudrockCode.Keywords;
 using BaseLib.Utils;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -22,23 +25,34 @@ public class Pulverize() : ArknightsMudrockCard(3,
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(4, ValueProp.Move),
         new RepeatVar(4),
-        new PowerVar<WeakPower>(1)
+        new DynamicVar("DebuffAmount", 1)
     ];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<WeakPower>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromPower<WeakPower>(), 
+        HoverTipFactory.FromPower<VulnerablePower>()
+    ];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
         await CommonActions.CardAttack(this, play, hitCount: DynamicVars.Repeat.IntValue, vfx: "vfx/vfx_attack_slash").Execute(choiceContext);
-        if (play.Target != null)
-            await CommonActions.Apply<WeakPower>(choiceContext, play.Target, this);
+    }
+
+    public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer, DamageResult result, ValueProp props,
+        Creature target, CardModel? cardSource)
+    {
+        if (CombatState == null || dealer != Owner.Creature || cardSource != this) return;
+        
+        if (Owner.RunState.Rng.Niche.NextBool())
+            await CommonActions.Apply<VulnerablePower>(choiceContext, target, this, DynamicVars["DebuffAmount"].BaseValue);
+        else
+            await CommonActions.Apply<WeakPower>(choiceContext, target, this, DynamicVars["DebuffAmount"].BaseValue);
     }
 
     protected override void OnUpgrade()
     {
         DynamicVars.Repeat.UpgradeValueBy(1);
-        DynamicVars.Weak.UpgradeValueBy(1);
     }
 }

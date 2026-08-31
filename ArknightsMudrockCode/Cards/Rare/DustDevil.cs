@@ -3,10 +3,13 @@
 using ArknightsMudrock.ArknightsMudrockCode.Keywords;
 using ArknightsMudrock.ArknightsMudrockCode.Powers;
 using BaseLib.Utils;
+using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.ValueProps;
 
 #endregion
@@ -22,22 +25,28 @@ public class DustDevil() : ArknightsMudrockCard(3,
     public override IEnumerable<CardKeyword> CanonicalKeywords => [MudrockKeywords.Inertial];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(8, ValueProp.Move),
+        new DamageVar(10, ValueProp.Move),
         new DynamicVar("HitCount", 3)
-        //new CalculationBaseVar(0),
-        //new CalculationExtraVar(1),
-        //new CalculatedVar(CalculatedHitsKey).WithMultiplier((card, _) => card.Owner.Creature.GetPowerAmount<MomentumPower>())
     ];
-
-    // protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MomentumPower>()];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        // var numHits = (int)((CalculatedVar)DynamicVars[CalculatedHitsKey]).Calculate(play.Target);
         var numHits = DynamicVars["HitCount"].IntValue;
         await CommonActions.CardAttack(this, play, hitCount: numHits, vfx: "vfx/vfx_giant_horizontal_slash").Execute(choiceContext);
+        
+        if (CombatState == null) return;
+        
+        List<PileType> piles = [PileType.Draw, PileType.Hand, PileType.Discard];
+        foreach (var pile in piles)
+        {
+            if (pile != PileType.Hand)
+                CardCmd.PreviewCardPileAdd(
+                    await CardPileCmd.AddGeneratedCardToCombat(CombatState.CreateCard<Debris>(Owner), pile, Owner));
+            else
+                await CardPileCmd.AddGeneratedCardToCombat(CombatState.CreateCard<Debris>(Owner), pile, Owner);
+        }
     }
 
     protected override void OnUpgrade()

@@ -21,15 +21,6 @@ public class MercenaryPower() : ArknightsMudrockPower
 
     protected override object? InitInternalData() => new Data();
 
-    // uncomment to have the power retroactively check if momentum has already been gained the same turn it's played
-    // (also would need to change to counting the amount)
-    // public override Task AfterApplied(Creature? applier, CardModel? cardSource)
-    // {
-    //     GetInternalData<Data>().gainedMomentumThisTurn = CombatManager.Instance.History.Entries.Any(e =>
-    //         e.HappenedThisTurn(CombatState) && e.Actor == Owner && (e as PowerReceivedEntry)?.Power is MomentumPower);
-    //     return Task.CompletedTask;
-    // }
-
     public override decimal ModifyPowerAmountGivenAdditive(PowerModel power, Creature giver, decimal amount, Creature? target,
         CardModel? cardSource)
     {

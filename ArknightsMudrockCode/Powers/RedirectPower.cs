@@ -1,16 +1,16 @@
+using ArknightsMudrock.ArknightsMudrockCode.Extensions;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
-using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Powers;
 
-/// TODO: Does not currently work in multiplayer (players without power will see and recieve additional hits without the damage reduction)
+/// TODO: Does not work properly in multiplayer.
 public class RedirectPower() : ArknightsMudrockPower
 {
     public override PowerType Type =>
@@ -18,46 +18,61 @@ public class RedirectPower() : ArknightsMudrockPower
 
     public override PowerStackType StackType =>
         PowerStackType.Counter;
-    
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("DamageDecrease", 0.5M)];
 
     protected override object? InitInternalData() => new Data();
     
     public override int ModifyAttackHitCount(AttackCommand attack, int hitCount)
     {
-        GetInternalData<Data>().redirectActivated = false;
         if (attack._sourceType != AttackCommand.SourceType.Monster || !attack.DamageProps.IsPoweredAttack())
             return hitCount;
         
-        var players = attack.GetPossibleTargets().Select(c => c.Player!);
+        var shieldAmount = Owner.Player?.PlayerCombatState?.ShieldState()?.Shields;
+        if (shieldAmount > 0)
+        {
+            return shieldAmount.Value;
+        }
 
-        if (!LocalContext.GetMe(players)?.Creature.HasPower<RedirectPower>() ?? true)
-            return hitCount;
-        
-        GetInternalData<Data>().redirectActivated = true;
-        return hitCount * 2;
-        
+        return hitCount;
+
     }
 
-    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer,
+    public override decimal ModifyHpLostBeforeOsty(Creature target, decimal amount, ValueProp props, Creature? dealer,
         CardModel? cardSource)
     {
-        return (target == null || !target.IsPlayer || target != Owner || !props.IsPoweredAttack() || !target.HasPower<RedirectPower>())
-            ? 1 
-            : DynamicVars["DamageDecrease"].BaseValue;
+        var shieldAmount = Owner.Player?.PlayerCombatState?.ShieldState()?.Shields;
+
+        if (shieldAmount == 0
+            //|| target != Owner
+            //|| !target.HasPower<RedirectPower>()
+            || dealer == null
+            || !dealer.IsMonster
+            || dealer != CombatState.Enemies.FirstOrDefault(c => c.Monster?.IntendsToAttack == true)
+            || !props.IsPoweredAttack()
+           ) return amount;
+        
+        var intent = dealer.Monster!.NextMove.Intents.FirstOrDefault(intent => intent is AttackIntent) as AttackIntent;
+        if (intent == null) return amount;
+
+        if (GetInternalData<Data>().initalHit)
+        {
+            GetInternalData<Data>().damageToDeal =
+                (decimal) intent.GetIntentLabel(CombatState.PlayerCreatures, dealer).Variables["Damage"];
+            GetInternalData<Data>().initalHit = false;
+        }
+
+        return GetInternalData<Data>().damageToDeal;
+        
     }
 
     public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
     {
-        if (GetInternalData<Data>().redirectActivated)
-        {
-            await PowerCmd.Decrement(this);
-            GetInternalData<Data>().redirectActivated = false;
-        }
+        await PowerCmd.Decrement(this);
+        GetInternalData<Data>().initalHit = true;
     }
 
     private class Data
     {
-        public bool redirectActivated;
+        public bool initalHit = true;
+        public decimal damageToDeal;
     }
 }

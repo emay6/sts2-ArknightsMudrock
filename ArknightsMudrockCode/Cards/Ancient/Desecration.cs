@@ -2,6 +2,7 @@
 
 using ArknightsMudrock.ArknightsMudrockCode.Keywords;
 using ArknightsMudrock.ArknightsMudrockCode.Powers;
+using ArknightsMudrock.ArknightsMudrockCode.Variables;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -17,12 +18,15 @@ public class Desecration() : ArknightsMudrockCard(2,
     CardType.Power, CardRarity.Ancient,
     TargetType.Self)
 {
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DesecrationPower>(1)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new EnergyVar(1),
+        new PowerVar<DesecrationPower>(2),
+        new ShieldVar(0)
+    ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipFactory.FromKeyword(MudrockKeywords.Inertial), 
-        HoverTipFactory.FromKeyword(CardKeyword.Exhaust)
+        HoverTipFactory.FromPower<DensityPower>()
     ];
 
     protected override async Task OnPlay(
@@ -30,6 +34,7 @@ public class Desecration() : ArknightsMudrockCard(2,
         CardPlay play)
     {
         await CreatureCmd.TriggerAnim(Owner.Creature, "PowerUp", Owner.Character.PowerUpAnimDelay);
+        await CommonActions.ApplySelf<ResourcefulPower>(choiceContext, this, DynamicVars.Energy.BaseValue);
         await CommonActions.ApplySelf<DesecrationPower>(choiceContext, this);
     }
 

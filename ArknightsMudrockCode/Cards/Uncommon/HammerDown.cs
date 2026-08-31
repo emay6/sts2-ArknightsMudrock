@@ -1,5 +1,7 @@
 #region
 
+using ArknightsMudrock.ArknightsMudrockCode.Powers;
+using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Combat.History.Entries;
 using MegaCrit.Sts2.Core.Commands;
@@ -21,29 +23,19 @@ public sealed class HammerDown : ArknightsMudrockCard
     {
     }
 
-    protected override IEnumerable<DynamicVar> CanonicalVars
-    {
-        get
-        {
-            return [
-                new CalculationBaseVar(0M),
-                new ExtraDamageVar(12M),
-                new CalculatedDamageVar(ValueProp.Move).WithMultiplier((Func<CardModel, Creature?, Decimal>) ((card, _) =>
-                    CombatManager.Instance.History.CardPlaysFinished.Count<CardPlayFinishedEntry>(e =>
-                        e.HappenedThisTurn(card.CombatState) &&
-                        e.CardPlay.Card.Type == CardType.Attack &&
-                        e.CardPlay.Card.Owner == card.Owner)))
-            ];
-        }
-    }
+    protected override IEnumerable<DynamicVar> CanonicalVars => [
+        new DamageVar(25, ValueProp.Move),
+        new PowerVar<NoMomentumPower>(2)
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         ArgumentNullException.ThrowIfNull(cardPlay.Target, nameof(cardPlay.Target));
-        await DamageCmd.Attack(DynamicVars.CalculatedDamage).FromCard(this).Targeting(cardPlay.Target)
+        await DamageCmd.Attack(DynamicVars.Damage.BaseValue).FromCard(this).Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_blunt", tmpSfx: "blunt_attack.mp3")
             .Execute(choiceContext);
+        await CommonActions.ApplySelf<NoMomentumPower>(choiceContext, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars.ExtraDamage.UpgradeValueBy(4M);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(7);
 }

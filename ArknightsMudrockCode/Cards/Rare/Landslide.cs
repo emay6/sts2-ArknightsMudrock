@@ -36,10 +36,10 @@ public class Landslide() : ArknightsMudrockCard(3,
             var rockCard = combatState.CreateCard<GiantRock>(Owner);
             if (IsUpgraded)
                 CardCmd.Upgrade(rockCard);
-            CardCmd.PreviewCardPileAdd(await CardPileCmd.AddGeneratedCardToCombat(rockCard, PileType.Hand, Owner));
+            await CardPileCmd.AddGeneratedCardToCombat(rockCard, PileType.Hand, Owner);
         }
 
-        await Cmd.CustomScaledWait(0.3f, 0.6f);
+        await Cmd.CustomScaledWait(0.2f, 0.4f);
 
         var giantRocks = MudrockUtils.GetDeckInCombat(Owner)
             .Where(c => c is GiantRock && !c.Keywords.Contains(CardKeyword.Unplayable));
@@ -47,18 +47,5 @@ public class Landslide() : ArknightsMudrockCard(3,
         {
             await CardCmd.AutoPlay(choiceContext, giantRock, null);
         }
-
-        /*await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .WithHitCount(DynamicVars.Repeat.IntValue)
-            .FromCard(this)
-            .TargetingRandomOpponents(combatState)
-            .WithHitFx("vfx/vfx_attack_blunt")
-            .Execute(choiceContext);*/
     }
-
-    /*protected override void OnUpgrade()
-    {
-        DynamicVars.Damage.UpgradeValueBy(1);
-        DynamicVars.Repeat.UpgradeValueBy(1);
-    }*/
 }

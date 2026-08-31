@@ -53,7 +53,23 @@ public static class ShieldCmd
         if (!CombatManager.Instance.IsEnding && player.Creature.CombatState != null)
         {
             var shieldState = player.PlayerCombatState?.ShieldState();
-            shieldState?.MaxShieldCount = amount;
+            
+            if (shieldState != null)
+            {
+                shieldState.MaxShieldCount = amount;
+
+                // remove any shields above new limit (in case of max limit being reduced)
+                shieldState.Shields = Math.Min(shieldState.Shields, shieldState.MaxShieldCount);
+            }
+        }
+    }
+
+    public static async Task SetShieldEnergyValue(int amount, Player player, CardPlay? cardPlay = null)
+    {
+        if (!CombatManager.Instance.IsEnding && player.Creature.CombatState != null)
+        {
+            var shieldState = player.PlayerCombatState?.ShieldState();
+            shieldState?.EnergyValue = amount;
         }
     }
 }

@@ -18,6 +18,8 @@ public class TectonicPower() : ArknightsMudrockPower
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new ShieldVar(0)];
 
+    public override bool AllowNegative => true;
+
     public override async Task AfterPowerAmountChanged(PlayerChoiceContext choiceContext, PowerModel power, decimal amount, Creature? applier,
         CardModel? cardSource)
     {
@@ -25,7 +27,7 @@ public class TectonicPower() : ArknightsMudrockPower
         {
             var player = power.Owner.Player!;
             var baseMaxShields = Character.ArknightsMudrock.BaseMaxShieldCount;
-            await ShieldCmd.SetMaxShieldAmount(baseMaxShields + _amount, player);
+            await ShieldCmd.SetMaxShieldAmount(baseMaxShields + Amount, player);
         }
     }
 }

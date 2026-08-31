@@ -40,7 +40,7 @@ public static class PlayerCombatStateExtension
             set
             {
                 int prevAmount = field;
-                field = MudrockUtils.ClampMin(value, 1);
+                field = MudrockUtils.ClampMin(value, 0);
                 ShieldValueChanged?.Invoke(prevAmount, field);
             }
         } = Character.ArknightsMudrock.BaseShieldValue;

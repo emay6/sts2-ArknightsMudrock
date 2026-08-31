@@ -14,13 +14,11 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
 public class Fracture() : ArknightsMudrockCard(1,
-    CardType.Attack, CardRarity.Uncommon,
-    TargetType.AllEnemies)
+    CardType.Skill, CardRarity.Uncommon,
+    TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new CalculationBaseVar(0),
-        new ExtraDamageVar(1),
-        new CalculatedDamageVar(ValueProp.Move).WithMultiplier((_, target) => target?.GetPowerAmount<QuakePower>() ?? 0)
+        new PowerVar<FracturePower>(3)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<QuakePower>()];
@@ -29,11 +27,12 @@ public class Fracture() : ArknightsMudrockCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_attack_blunt").Execute(choiceContext);
+        if (play.Target != null)
+            await CommonActions.Apply<FracturePower>(choiceContext, play.Target, this);
     }
 
     protected override void OnUpgrade()
     {
-        AddKeyword(MudrockKeywords.Inertial);
+        EnergyCost.UpgradeBy(-1);
     }
 }

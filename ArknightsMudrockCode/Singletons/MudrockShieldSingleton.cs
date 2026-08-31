@@ -2,6 +2,7 @@
 
 using ArknightsMudrock.ArknightsMudrockCode.Extensions;
 using ArknightsMudrock.ArknightsMudrockCode.Hooks;
+using ArknightsMudrock.ArknightsMudrockCode.Powers;
 using BaseLib.Abstracts;
 using GodotPlugins.Game;
 using MegaCrit.Sts2.Core.Combat;
@@ -23,18 +24,21 @@ public class MudrockShieldSingleton() : CustomSingletonModel(HookType.Combat), I
     public override decimal ModifyHpLostBeforeOsty(Creature? target, decimal amount, ValueProp props, Creature? dealer,
         CardModel? cardSource)
     {
-        if (target == null || !target.IsPlayer || !props.IsPoweredAttack() || amount == 0) return amount;
+        if (target == null || !target.IsPlayer || !props.IsPoweredAttack() || amount < 1) return amount;
 
         var player = target.Player!;
-        var combatState = target.CombatState!;
         var playerCombatState = player.PlayerCombatState;
         
         if (playerCombatState == null || playerCombatState.ShieldState()?.Shields == 0) return amount;
 
         var shieldState = playerCombatState.ShieldState()!;
-        
-        shieldState.Shields -= 1;
-        MudrockHooks.AfterShieldLost(new HookPlayerChoiceContext(player, player.NetId, GameActionType.Combat), player, 1, dealer, props);
+
+        // player will receive damage reduction but will not lose their shield after enemy attacks if they have this power
+        if (dealer?.IsEnemy == false || !target.HasPower<UnshakableSolidarityPower>())
+        {
+            shieldState.Shields -= 1;
+            MudrockHooks.AfterShieldLost(new HookPlayerChoiceContext(player, player.NetId, GameActionType.Combat), player, 1, dealer, props);
+        }
         return Math.Max(0, amount - shieldState.ShieldValue);
     }
 

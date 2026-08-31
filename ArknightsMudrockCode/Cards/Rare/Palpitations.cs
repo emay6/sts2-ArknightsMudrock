@@ -1,6 +1,7 @@
 #region
 
 using ArknightsMudrock.ArknightsMudrockCode.Powers;
+using BaseLib.Extensions;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -30,6 +31,6 @@ public class Palpitations() : ArknightsMudrockCard(2,
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
+        DynamicVars.Power<PalpitationsPower>().UpgradeValueBy(1);
     }
 }

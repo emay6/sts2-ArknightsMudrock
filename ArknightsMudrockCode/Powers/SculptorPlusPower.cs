@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.Models.Cards;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Powers;
 
-public class SculptorPower() : ArknightsMudrockPower
+public class SculptorPlusPower() : ArknightsMudrockPower
 {
     public override PowerType Type =>
         PowerType.Buff;
@@ -21,7 +21,7 @@ public class SculptorPower() : ArknightsMudrockPower
     public override PowerStackType StackType =>
         PowerStackType.Counter;
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<GiantRock>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<GiantRock>(true)];
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
@@ -33,6 +33,7 @@ public class SculptorPower() : ArknightsMudrockPower
         foreach (var card in cards)
         {
             var transform = CombatState.CreateCard<GiantRock>(player);
+            CardCmd.Upgrade(transform);
             await CardCmd.Transform(card, transform);
         }
     }
