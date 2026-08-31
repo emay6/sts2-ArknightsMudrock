@@ -1,0 +1,102 @@
+[gd_scene load_steps=8 format=3 uid="uid://uk1yapc0w8sf"]
+
+[ext_resource type="Texture2D" uid="uid://bklsihp34on6k" path="res://ArknightsMudrock/images/combat_ui/energy_counters/mudrock_orb_layer_1.png" id="1_wjrk5"]
+[ext_resource type="Texture2D" uid="uid://ta0ahgy4ji65" path="res://ArknightsMudrock/images/combat_ui/energy_counters/mudrock_orb_layer_2.png" id="2_iovtb"]
+[ext_resource type="Script" uid="uid://c226b4lyqve6b" path="res://ArknightsMudrock/scenes/combat/energy_counters/layer_1.gd" id="3_6vct7"]
+[ext_resource type="Texture2D" uid="uid://dx5l0nkybtju4" path="res://ArknightsMudrock/images/combat_ui/energy_counters/mudrock_orb_layer_3.png" id="3_iovtb"]
+[ext_resource type="Texture2D" uid="uid://q4e6w7oxpgt4" path="res://ArknightsMudrock/images/combat_ui/energy_counters/mudrock_orb_layer_4.png" id="3_pwoxl"]
+[ext_resource type="Texture2D" uid="uid://djyk5lba20m0b" path="res://ArknightsMudrock/images/combat_ui/energy_counters/mudrock_orb_layer_5.png" id="4_6vct7"]
+[ext_resource type="Script" uid="uid://bso3gbcitag6p" path="res://ArknightsMudrock/scenes/combat/energy_counters/layer_3.gd" id="5_6vct7"]
+
+[node name="MudrockEnergyCounter" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 128.0
+metadata/_edit_lock_ = true
+
+[node name="Layers" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="RotationLayers" type="Control" parent="Layers"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Layer1" type="TextureRect" parent="Layers"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("1_wjrk5")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Layer2" type="TextureRect" parent="Layers"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("2_iovtb")
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("3_6vct7")
+
+[node name="Layer3" type="TextureRect" parent="Layers"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("3_iovtb")
+expand_mode = 1
+stretch_mode = 4
+script = ExtResource("5_6vct7")
+
+[node name="Layer4" type="TextureRect" parent="Layers"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("3_pwoxl")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Layer5" type="TextureRect" parent="Layers"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = ExtResource("4_6vct7")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 16
+theme_override_constants/shadow_outline_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -72,6 +72,9 @@ public class ArknightsMudrock : PlaceholderCharacterModel
 	public override string CustomMapMarkerPath => "map_marker_mudrock.png".CharacterUiPath();
 	public override string CustomMerchantAnimPath => "res://ArknightsMudrock/scenes/merchant/mudrock_merchant.tscn";
 	public override string CustomCharacterSelectBg => "res://ArknightsMudrock/scenes/screens/char_select/char_select_bg_mudrock.tscn";
+	public override string CustomRestSiteAnimPath => "res://ArknightsMudrock/scenes/rest_site/mudrock_rest_site.tscn";
+	public override string CustomEnergyCounterPath => "res://ArknightsMudrock/scenes/combat/energy_counters/mudrock_energy_counter.tscn";
+	public override Color EnergyLabelOutlineColor => new Color("333333");
 	public override NCreatureVisuals CreateCustomVisuals()
 	{
 		return NodeFactory<NCreatureVisuals>.CreateFromScene("res://ArknightsMudrock/scenes/creature_visuals/Mudrock2.tscn");

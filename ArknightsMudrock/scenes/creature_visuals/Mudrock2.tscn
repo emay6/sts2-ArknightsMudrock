@@ -1,6 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://b37uu8twvyutb"]
+[gd_scene load_steps=16 format=3 uid="uid://b37uu8twvyutb"]
 
-[ext_resource type="Texture2D" uid="uid://cghljsam5wk64" path="res://ArknightsMudrock/images/character/spritesheet_skill_2.png" id="1_c0ai8"]
+[ext_resource type="Texture2D" uid="uid://coxgvu2h6myqx" path="res://ArknightsMudrock/images/character/spritesheet_new_2.png" id="1_c0ai8"]
 
 [sub_resource type="Animation" id="Animation_03dvg"]
 length = 0.001
@@ -32,6 +32,23 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.0125, 0.025, 0.0375, 0.049999997, 0.062500015, 0.075, 0.08749999, 0.10000001, 0.1125, 0.12500001, 0.1375, 0.15, 0.16250001, 0.175, 0.18750001, 0.2, 0.21249999, 0.225, 0.23749998, 0.25000003, 0.26250002, 0.275, 0.2875, 0.29999998, 0.31249997, 0.32500002, 0.3375, 0.35, 0.36249998)
 }
 
+[sub_resource type="Animation" id="Animation_eomi0"]
+resource_name = "die"
+length = 1.4
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.025, 0.05, 0.075, 0.1, 0.125, 0.15, 0.175, 0.2, 0.22500001, 0.25, 0.275, 0.3, 0.32500002, 0.35, 0.375, 0.4, 0.425, 0.45000002, 0.475, 0.5, 0.52500004, 0.55, 0.575, 0.6, 0.625, 0.65000004, 0.675, 0.7, 0.725, 0.75, 0.77500004, 0.8, 0.825, 0.85, 0.875, 0.90000004, 0.925, 0.95, 0.975, 1, 1.025, 1.0500001, 1.075, 1.1, 1.125, 1.15, 1.1750001, 1.2, 1.225, 1.25, 1.275, 1.3000001),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158]
+}
+
 [sub_resource type="Animation" id="Animation_56588"]
 resource_name = "idle"
 length = 1.5
@@ -53,11 +70,15 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_03dvg"),
 &"attack": SubResource("Animation_8xtb7"),
+&"die": SubResource("Animation_eomi0"),
 &"idle": SubResource("Animation_56588")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6xf53"]
 animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0iegp"]
+animation = &"die"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d80h1"]
 animation = &"idle"
@@ -72,13 +93,20 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_etimq"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5b6hv"]
+advance_mode = 0
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ujpb8"]
 states/Start/position = Vector2(217, 100)
 states/attack/node = SubResource("AnimationNodeAnimation_6xf53")
 states/attack/position = Vector2(471, 181)
+states/die/node = SubResource("AnimationNodeAnimation_0iegp")
+states/die/position = Vector2(560, 73)
 states/idle/node = SubResource("AnimationNodeAnimation_d80h1")
 states/idle/position = Vector2(471, 100)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_icfg5"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_xcyx4"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_v71k0")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_icfg5"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_xcyx4"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_v71k0"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_etimq"), "die", "idle", SubResource("AnimationNodeStateMachineTransition_5b6hv")]
 
 [node name="Root" type="Node2D"]
 
@@ -102,15 +130,15 @@ position = Vector2(0, -123)
 [node name="OrbPos" type="Marker2D" parent="."]
 
 [node name="TalkPos" type="Marker2D" parent="."]
-position = Vector2(56, -192)
+position = Vector2(99, -259)
 
 [node name="Visuals" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
 position = Vector2(46, -154)
 texture = ExtResource("1_c0ai8")
-hframes = 11
-vframes = 10
+hframes = 15
+vframes = 11
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals"]
 root_node = NodePath("../..")

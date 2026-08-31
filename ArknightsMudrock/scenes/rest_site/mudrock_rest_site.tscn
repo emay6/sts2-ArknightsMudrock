@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://cagx0evc8knd4"]
+
+[ext_resource type="Texture2D" uid="uid://7t5iq1ghmor1" path="res://ArknightsMudrock/images/character/mudrock_rest_site.png" id="1_i2gxr"]
+
+[node name="MudrockRestSite" type="Node2D"]
+position = Vector2(0, 43)
+scale = Vector2(0.36, 0.36)
+
+[node name="ControlRoot" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="SelectionReticle" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -304.61542
+offset_top = -436.92313
+offset_right = 492.30774
+offset_bottom = 604.6155
+mouse_filter = 2
+
+[node name="Hitbox" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -304.61542
+offset_top = -436.92313
+offset_right = 492.30774
+offset_bottom = 604.6155
+
+[node name="ThoughtBubbleRight" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = 432.30774
+offset_top = -409.23077
+offset_right = 432.30774
+offset_bottom = -409.23077
+
+[node name="ThoughtBubbleLeft" type="Control" parent="ControlRoot"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_left = -246.15385
+offset_top = -409.23077
+offset_right = -246.15385
+offset_bottom = -409.23077
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_i2gxr")
