@@ -27,11 +27,19 @@ public class UnstoppableForce() : ArknightsMudrockCard(1,
         await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_attack_blunt").Execute(choiceContext);
         
         if (Owner.PlayerCombatState == null) return;
+
+        // Draw can reshuffle the discard pile, so check both piles before
+        // attempting to draw. Without an inertial card available, repeatedly
+        // drawing can reach an empty draw pile and crash the combat.
+        var hasInertialCard = PileType.Draw.GetPile(Owner).Cards
+            .Concat(PileType.Discard.GetPile(Owner).Cards)
+            .Any(card => card.Keywords.Contains(MudrockKeywords.Inertial));
+        if (!hasInertialCard) return;
         
         while (Owner.PlayerCombatState.Hand.Cards.Count < CardPile.MaxCardsInHand)
         {
             var cardDrawn = await CardPileCmd.Draw(choiceContext, Owner);
-            if (cardDrawn != null && cardDrawn.Keywords.Contains(MudrockKeywords.Inertial)) break;
+            if (cardDrawn == null || cardDrawn.Keywords.Contains(MudrockKeywords.Inertial)) break;
         }
     }
 
