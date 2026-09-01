@@ -5,8 +5,6 @@ using ArknightsMudrock.ArknightsMudrockCode.Extensions;
 using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
-using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Potions;
 
 #endregion
 
@@ -19,5 +17,5 @@ public abstract class ArknightsMudrockPotion : CustomPotionModel
         $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".PotionImagePath();
 
     public override string? CustomPackedOutlinePath => 
-        $"{Id.Entry.RemovePrefix()}_outline.png".PotionOutlineImagePath();
+        $"{Id.Entry.RemovePrefix().ToLowerInvariant()}_outline.png".PotionOutlineImagePath();
 }
