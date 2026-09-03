@@ -18,7 +18,7 @@ public class Behemoth() : ArknightsMudrockCard(4,
     TargetType.AnyEnemy)
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(30, ValueProp.Move),
+        new DamageVar(27, ValueProp.Move),
         new ShieldVar(0)
     ];
 
@@ -45,6 +45,6 @@ public class Behemoth() : ArknightsMudrockCard(4,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(10);
+        DynamicVars.Damage.UpgradeValueBy(9);
     }
 }

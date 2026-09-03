@@ -31,6 +31,6 @@ public class Mercenary() : ArknightsMudrockCard(2,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Power<MercenaryPower>().UpgradeValueBy(1);
+        EnergyCost.UpgradeBy(-1);
     }
 }

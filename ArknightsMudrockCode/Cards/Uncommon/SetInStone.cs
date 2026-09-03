@@ -18,7 +18,7 @@ public class SetInStone() : ArknightsMudrockCard(1,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new ShieldVar(1),
-        new PowerVar<DensityPower>(2),
+        new PowerVar<DensityPower>(1),
         new PowerVar<NoMomentumPower>(1)
     ];
 

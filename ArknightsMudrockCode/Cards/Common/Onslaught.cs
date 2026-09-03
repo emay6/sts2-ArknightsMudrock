@@ -18,7 +18,7 @@ public class Onslaught() : ArknightsMudrockCard(3,
     public override IEnumerable<CardKeyword> CanonicalKeywords => [MudrockKeywords.Inertial];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(21, ValueProp.Move),
+        new DamageVar(19, ValueProp.Move),
         new CardsVar(2)
     ];
 
@@ -32,6 +32,6 @@ public class Onslaught() : ArknightsMudrockCard(3,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(6);
+        DynamicVars.Damage.UpgradeValueBy(5);
     }
 }

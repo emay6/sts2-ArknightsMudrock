@@ -20,7 +20,7 @@ public class ArmyOfOne() : ArknightsMudrockCard(1,
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DensityPower>(8)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<DensityPower>(7)];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<DensityPower>()];
 

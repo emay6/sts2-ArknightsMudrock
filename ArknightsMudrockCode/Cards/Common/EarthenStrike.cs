@@ -19,7 +19,7 @@ public class EarthenStrike() : ArknightsMudrockCard(1,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(7, ValueProp.Move), 
-        new PowerVar<DensityPower>(2)
+        new PowerVar<DensityPower>(1)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<DensityPower>()];

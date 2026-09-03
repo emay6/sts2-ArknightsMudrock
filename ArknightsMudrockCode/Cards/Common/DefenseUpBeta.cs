@@ -31,6 +31,6 @@ public class DefenseUpBeta() : ArknightsMudrockCard(0,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Power<DensityPower>().UpgradeValueBy(3);
+        DynamicVars.Power<DensityPower>().UpgradeValueBy(2);
     }
 }

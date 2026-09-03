@@ -20,7 +20,7 @@ public class KnockKnock() : ArknightsMudrockCard(3,
         MudrockKeywords.Inertial
     ];
     
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(16, ValueProp.Move)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new DamageVar(14, ValueProp.Move)];
 
     protected override async Task OnPlay(
         PlayerChoiceContext choiceContext,

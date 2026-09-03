@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Uncommon;
 
-public class ChildOfSoil() : ArknightsMudrockCard(1,
+public class ChildOfSoil() : ArknightsMudrockCard(2,
     CardType.Power, CardRarity.Uncommon,
     TargetType.Self)
 {

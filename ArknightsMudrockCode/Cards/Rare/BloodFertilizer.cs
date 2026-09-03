@@ -21,8 +21,8 @@ public class BloodFertilizer() : ArknightsMudrockCard(3,
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(27, ValueProp.Move),
-        new HealVar(5)
+        new DamageVar(24, ValueProp.Move),
+        new HealVar(6)
     ];
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [
@@ -44,6 +44,6 @@ public class BloodFertilizer() : ArknightsMudrockCard(3,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(9);
+        DynamicVars.Damage.UpgradeValueBy(8);
     }
 }

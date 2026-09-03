@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Rare;
 
-public class GargoyleForm() : ArknightsMudrockCard(2,
+public class GargoyleForm() : ArknightsMudrockCard(3,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {
@@ -31,6 +31,6 @@ public class GargoyleForm() : ArknightsMudrockCard(2,
 
     protected override void OnUpgrade()
     {
-        AddKeyword(CardKeyword.Innate);
+        EnergyCost.UpgradeBy(-1);
     }
 }

@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Rare;
 
-public class Balderdash() : ArknightsMudrockCard(7,
+public class Balderdash() : ArknightsMudrockCard(8,
     CardType.Attack, CardRarity.Rare,
     TargetType.AnyEnemy)
 {

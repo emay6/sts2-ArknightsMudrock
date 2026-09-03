@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Cards.Rare;
 
-public class HighGround() : ArknightsMudrockCard(2,
+public class HighGround() : ArknightsMudrockCard(3,
     CardType.Power, CardRarity.Rare,
     TargetType.Self)
 {

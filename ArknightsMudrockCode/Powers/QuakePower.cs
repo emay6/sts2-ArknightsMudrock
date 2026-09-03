@@ -35,8 +35,6 @@ public class QuakePower() : ArknightsMudrockPower
         foreach (var creature in targets/*(palpitationsActive ? targets : targets.Where(c => c != Owner))*/)
         {
             await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), creature, Amount, ValueProp.Unpowered, Applier, null);
-            if (palpitationsActive)
-                await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), creature, Amount, ValueProp.Unpowered, Applier, null);
         }
         
         if (Owner.IsAlive)

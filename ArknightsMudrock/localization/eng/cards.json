@@ -43,7 +43,7 @@
   "ARKNIGHTSMUDROCK-OBSIDIAN.title": "Obsidian",
   "ARKNIGHTSMUDROCK-ARMY_OF_ONE.description": "Gain {DensityPower:diff()} [gold]Density[/gold] this turn. Put this card on top of your [gold]Draw Pile[/gold].",
   "ARKNIGHTSMUDROCK-ARMY_OF_ONE.title": "Army of One",
-  "ARKNIGHTSMUDROCK-KAZDELIAN_ARTS.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\nGain {DensityPower:diff()} [gold]Density[/gold]\nGain {VigorPower:diff()} [gold]Vigor[/gold].",
+  "ARKNIGHTSMUDROCK-KAZDELIAN_ARTS.description": "Draw {Cards:diff()} {Cards:plural:card|cards}.\nGain {Energy:energyIcons()}.\nGain {DensityPower:diff()} [gold]Density[/gold].\nGain {VigorPower:diff()} [gold]Vigor[/gold].",
   "ARKNIGHTSMUDROCK-KAZDELIAN_ARTS.title": "Kazdelian Arts",
   "ARKNIGHTSMUDROCK-RUIN.description": "Deal {Damage:diff()} damage.",
   "ARKNIGHTSMUDROCK-RUIN.title": "Ruin",

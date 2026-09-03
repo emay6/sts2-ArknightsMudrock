@@ -24,7 +24,7 @@ public sealed class HammerDown : ArknightsMudrockCard
     }
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [
-        new DamageVar(25, ValueProp.Move),
+        new DamageVar(20, ValueProp.Move),
         new PowerVar<NoMomentumPower>(2)
     ];
 
@@ -37,5 +37,5 @@ public sealed class HammerDown : ArknightsMudrockCard
         await CommonActions.ApplySelf<NoMomentumPower>(choiceContext, this);
     }
 
-    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(7);
+    protected override void OnUpgrade() => DynamicVars.Damage.UpgradeValueBy(6);
 }

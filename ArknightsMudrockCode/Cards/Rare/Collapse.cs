@@ -19,7 +19,7 @@ public class Collapse() : ArknightsMudrockCard(3,
 {
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new CalculationBaseVar(0),
-        new ExtraDamageVar(26),
+        new ExtraDamageVar(23),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier((card, _) => card.Owner.PlayerCombatState?.ShieldState()?.Shields ?? 0),
         new ShieldVar(0)
     ];
@@ -39,6 +39,6 @@ public class Collapse() : ArknightsMudrockCard(3,
 
     protected override void OnUpgrade()
     {
-        DynamicVars.ExtraDamage.UpgradeValueBy(8);
+        DynamicVars.ExtraDamage.UpgradeValueBy(5);
     }
 }

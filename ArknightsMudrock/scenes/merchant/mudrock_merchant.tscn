@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://b47trwe5orqfa"]
 
-[ext_resource type="Texture2D" uid="uid://48e5ptfvkmwq" path="res://ArknightsMudrock/images/character/spritesheet.png" id="1_hlpxf"]
+[ext_resource type="Texture2D" uid="uid://b8euexap27qjm" path="res://ArknightsMudrock/images/character/spritesheet_upscaled.png" id="1_hlpxf"]
 
 [sub_resource type="Animation" id="Animation_03dvg"]
 length = 0.001
@@ -73,7 +73,8 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 [node name="Visuals" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
-position = Vector2(46, -154)
+position = Vector2(82, -250.00005)
+scale = Vector2(1, 1.1)
 texture = ExtResource("1_hlpxf")
 hframes = 14
 vframes = 13

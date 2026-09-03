@@ -16,8 +16,6 @@ public class UnshakableSolidarity() : ArknightsMudrockCard(1,
     CardType.Skill, CardRarity.Rare,
     TargetType.Self)
 {
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Ethereal];
-
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new PowerVar<UnshakableSolidarityPower>(1),
         new ShieldVar(0)
