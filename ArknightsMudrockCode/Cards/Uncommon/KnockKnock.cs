@@ -26,7 +26,7 @@ public class KnockKnock() : ArknightsMudrockCard(3,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await CommonActions.CardAttack(this, play, hitCount: 2, vfx: "vfx/vfx_attack_slash").Execute(choiceContext);
+        await CommonActions.CardAttack(this, play, hitCount: 2, vfx: "vfx/vfx_attack_blunt").Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

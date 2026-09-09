@@ -28,7 +28,7 @@ public class EarthenStrike() : ArknightsMudrockCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_attack_slash").Execute(choiceContext);
+        await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_attack_blunt").Execute(choiceContext);
         await CommonActions.ApplySelf<DensityPower>(choiceContext, this);
     }
 

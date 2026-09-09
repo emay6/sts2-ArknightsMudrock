@@ -13,6 +13,7 @@ public class MudrockResources
         ResourceLoader.Load<Texture2D>("res://ArknightsMudrock/images/ui/combat/shield.png");
     
     public const string NShieldIconPath = "res://ArknightsMudrock/scenes/combat/shield_icon.tscn";
+    public const string NShieldRingsPath = "res://ArknightsMudrock/scenes/combat/shield_rings.tscn";
 
     public static LocString ShieldLocStringTitle =>
         new LocString("static_hover_tips", $"{MainFile.ModId.ToUpperInvariant()}-SHIELD.title");

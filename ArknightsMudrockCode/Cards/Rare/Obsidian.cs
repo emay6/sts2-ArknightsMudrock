@@ -34,7 +34,7 @@ public class Obsidian() : ArknightsMudrockCard(1,
         CardPlay play)
     {
         await CommonActions.ApplySelf<DensityPower>(choiceContext, this);
-        await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_attack_slash").Execute(choiceContext);
+        await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_attack_blunt").Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

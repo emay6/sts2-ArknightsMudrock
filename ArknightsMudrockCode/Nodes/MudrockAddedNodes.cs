@@ -19,4 +19,13 @@ public static class MudrockAddedNodes
         ui.AddChild(shieldIcon);
         return shieldIcon;
     });
+
+    public static readonly AddedNode<NCreatureVisuals, NShieldRings> NShieldRings = new
+    (visuals =>
+    {
+        var shieldRings = PreloadManager.Cache.GetScene(MudrockResources.NShieldRingsPath)
+            .Instantiate<NShieldRings>();
+        visuals.AddChild(shieldRings);
+        return shieldRings;
+    });
 }

@@ -3,6 +3,7 @@
 using ArknightsMudrock.ArknightsMudrockCode.Extensions;
 using BaseLib.Abstracts;
 using Godot;
+using MegaCrit.Sts2.Core.Assets;
 
 #endregion
 
@@ -32,7 +33,7 @@ public class ArknightsMudrockCardPool : CustomCardPoolModel
     }*/
 
     //Color of small card icons
-    public override Color DeckEntryCardColor => new("ffffff");
+    public override Color DeckEntryCardColor => new("7B3F00");
 
     public override bool IsColorless => false;
 }

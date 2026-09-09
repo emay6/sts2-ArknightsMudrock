@@ -28,7 +28,7 @@ public class CragSplitter() : ArknightsMudrockCard(1,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_attack_blunt").Execute(choiceContext);
+        await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_giant_horizontal_slash").Execute(choiceContext);
         await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, Owner.Creature,
             DynamicVars.Energy.BaseValue, Owner.Creature, this);
     }

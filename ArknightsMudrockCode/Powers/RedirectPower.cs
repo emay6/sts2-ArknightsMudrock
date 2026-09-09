@@ -42,11 +42,9 @@ public class RedirectPower() : ArknightsMudrockPower
         var shieldAmount = Owner.Player?.PlayerCombatState?.ShieldState()?.Shields;
 
         if (shieldAmount == 0
-            //|| target != Owner
-            //|| !target.HasPower<RedirectPower>()
+            || target != Owner
             || dealer == null
             || !dealer.IsMonster
-            || dealer != CombatState.Enemies.FirstOrDefault(c => c.Monster?.IntendsToAttack == true)
             || !props.IsPoweredAttack()
            ) return amount;
         
@@ -66,6 +64,14 @@ public class RedirectPower() : ArknightsMudrockPower
 
     public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
     {
+        // AfterAttack can be observed by powers outside the attacking creature
+        // in multiplayer. Only consume Redirect for an attack that actually
+        // hit this power's owner.
+        if (command.Attacker == Owner
+            || command._sourceType != AttackCommand.SourceType.Monster
+            || !command.Results.SelectMany(results => results).Any(result => result.Receiver == Owner))
+            return;
+
         await PowerCmd.Decrement(this);
         GetInternalData<Data>().initalHit = true;
     }

@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://l73nalet7b2y"]
+
+[ext_resource type="Script" path="res://ArknightsMudrockCode/Nodes/NShieldRings.cs" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://fw6r8e71ytnf" path="res://ArknightsMudrock/images/combat_ui/shield_rings/shield_1.png" id="2_ring1"]
+[ext_resource type="Texture2D" uid="uid://jtgl5drjm3ub" path="res://ArknightsMudrock/images/combat_ui/shield_rings/shield_2.png" id="3_ring2"]
+[ext_resource type="Texture2D" uid="uid://c7yqmdcmjvk83" path="res://ArknightsMudrock/images/combat_ui/shield_rings/shield_3.png" id="4_ring3"]
+[ext_resource type="Texture2D" uid="uid://thjy7rr4wmwn" path="res://ArknightsMudrock/images/combat_ui/shield_rings/shield_4.png" id="5_ring4"]
+[ext_resource type="Texture2D" uid="uid://bayggj7bp8j75" path="res://ArknightsMudrock/images/combat_ui/shield_rings/shield_5.png" id="6_ring5"]
+[ext_resource type="Texture2D" path="res://ArknightsMudrock/images/combat_ui/shield_rings/shield_flash_spritesheet.png" id="7_flash"]
+
+[node name="ShieldRings" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -512.0
+offset_bottom = 512.0
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="ShieldFlash" type="Sprite2D" parent="."]
+position = Vector2(256, 256)
+texture = ExtResource("7_flash")
+hframes = 5
+vframes = 4
+frame = 0
+z_index = 1
+
+[node name="RingRotation1" type="Node2D" parent="."]
+position = Vector2(256, 256)
+
+[node name="ShieldRing1" type="TextureRect" parent="RingRotation1"]
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+mouse_filter = 2
+texture = ExtResource("2_ring1")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="RingRotation2" type="Node2D" parent="."]
+position = Vector2(256, 256)
+
+[node name="ShieldRing2" type="TextureRect" parent="RingRotation2"]
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+mouse_filter = 2
+texture = ExtResource("3_ring2")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="RingRotation3" type="Node2D" parent="."]
+position = Vector2(256, 256)
+
+[node name="ShieldRing3" type="TextureRect" parent="RingRotation3"]
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+mouse_filter = 2
+texture = ExtResource("4_ring3")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="RingRotation4" type="Node2D" parent="."]
+position = Vector2(256, 256)
+
+[node name="ShieldRing4" type="TextureRect" parent="RingRotation4"]
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+mouse_filter = 2
+texture = ExtResource("5_ring4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="RingRotation5" type="Node2D" parent="."]
+position = Vector2(256, 256)
+
+[node name="ShieldRing5" type="TextureRect" parent="RingRotation5"]
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+mouse_filter = 2
+texture = ExtResource("6_ring5")
+expand_mode = 1
+stretch_mode = 4

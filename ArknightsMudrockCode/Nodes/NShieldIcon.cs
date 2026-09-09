@@ -44,7 +44,6 @@ public partial class NShieldIcon : Control
 		
 		ConnectShieldChangedSignals();
 		UpdateShieldIconInfo(_shieldCount, _shieldValue, _energyValue, true);
-		RefreshVisibility();
 	}
 
 	public override void _Ready()
@@ -141,7 +140,7 @@ public partial class NShieldIcon : Control
 		if (_player == null || !_isListening) return;
 		var shieldCombatState = _player.PlayerCombatState?.ShieldState();
 		shieldCombatState?.ShieldChanged -= OnShieldChanged;
-		shieldCombatState?.EnergyChanged += OnShieldEnergyChanged;
+		shieldCombatState?.EnergyChanged -= OnShieldEnergyChanged;
 		shieldCombatState?.ShieldValueChanged -= OnShieldValueChanged;
 		_isListening = false;
 	}

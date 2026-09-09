@@ -13,13 +13,19 @@ public static class PlayerCombatStateExtension
     public class ShieldCombatState()
     {
         public event Action<int, int>? ShieldChanged;
+        public event Action<int, int>? MaxShieldChanged;
         public event Action<int, int>? ShieldValueChanged;
         public event Action<int, int>? EnergyChanged;
         
         public int MaxShieldCount
         {
             get;
-            set => field = MudrockUtils.ClampMin(value, 0);
+            set
+            {
+                var previousValue = field;
+                field = MudrockUtils.ClampMin(value, 0);
+                MaxShieldChanged?.Invoke(previousValue, field);
+            }
         } = Character.ArknightsMudrock.BaseMaxShieldCount;
 
         public int Shields

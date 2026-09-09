@@ -24,14 +24,15 @@ public class HammeringTime() : ArknightsMudrockCard(0,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        var cardToInertial = (await CardSelectCmd.FromHand(choiceContext, Owner,
+        var cardsToInertial = await CardSelectCmd.FromHand(choiceContext, Owner,
             new CardSelectorPrefs(SelectionScreenPrompt, DynamicVars.Cards.IntValue),
-            c => !c.Keywords.Contains(MudrockKeywords.Inertial), this)).FirstOrDefault();
+            c => !c.Keywords.Contains(MudrockKeywords.Inertial), this);
         
-        if (cardToInertial == null) return;
+        if (!cardsToInertial.Any()) return;
         
         await CreatureCmd.TriggerAnim(Owner.Creature, "Cast", Owner.Character.CastAnimDelay);
-        cardToInertial.AddKeyword(MudrockKeywords.Inertial);
+        foreach (var card in cardsToInertial)
+            CardCmd.ApplyKeyword(card, MudrockKeywords.Inertial);
     }
 
     protected override void OnUpgrade()

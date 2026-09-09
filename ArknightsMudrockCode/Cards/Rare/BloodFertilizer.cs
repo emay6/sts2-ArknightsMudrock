@@ -36,7 +36,7 @@ public class BloodFertilizer() : ArknightsMudrockCard(3,
         if (play.Target != null)
         {
             var isFatal = play.Target.Powers.All(p => p.ShouldOwnerDeathTriggerFatal());
-            var attack = await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_attack_slash").Execute(choiceContext);
+            var attack = await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_attack_blunt").Execute(choiceContext);
             if (isFatal && attack.Results.SelectMany(r => r).Any(dr => dr.WasTargetKilled))
                 await CreatureCmd.Heal(Owner.Creature, DynamicVars.Heal.BaseValue);
         }

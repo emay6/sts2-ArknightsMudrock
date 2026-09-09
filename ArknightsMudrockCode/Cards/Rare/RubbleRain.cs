@@ -42,7 +42,7 @@ public class RubbleRain() : ArknightsMudrockCard(2,
             await CardCmd.Exhaust(choiceContext, card);
         }
 
-        await CommonActions.CardAttack(this, play, hitCount: numHits, vfx: "vfx/vfx_attack_blunt").Execute(choiceContext);
+        await CommonActions.CardAttack(this, play, hitCount: numHits, vfx: "vfx/vfx_rock_shatter").Execute(choiceContext);
     }
 
     protected override void OnUpgrade()
