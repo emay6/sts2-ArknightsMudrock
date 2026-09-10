@@ -32,12 +32,15 @@ public class ArmyOfOne() : ArknightsMudrockCard(1,
         await CommonActions.ApplySelf<ArmyOfOnePower>(choiceContext, this, DynamicVars.Power<DensityPower>().BaseValue);
     }
 
-    public override (PileType, CardPilePosition) ModifyCardPlayResultPileTypeAndPosition(CardModel card, bool isAutoPlay,
-        ResourceInfo resources, PileType pileType, CardPilePosition position)
+    protected override CardLocation GetResultLocationForCardPlay()
     {
-        if (card != this) return (pileType, position);
-
-        return (PileType.Draw, CardPilePosition.Top);
+        CardLocation locationForCardPlay = base.GetResultLocationForCardPlay();
+        if (locationForCardPlay.pileType == PileType.Discard)
+        {
+            locationForCardPlay.pileType = PileType.Draw;
+            locationForCardPlay.position = CardPilePosition.Top;
+        }
+        return locationForCardPlay;
     }
 
     protected override void OnUpgrade()

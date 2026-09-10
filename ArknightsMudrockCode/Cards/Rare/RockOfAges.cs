@@ -1,5 +1,6 @@
 #region
 
+using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -20,8 +21,6 @@ public class RockOfAges() : ArknightsMudrockCard(0,
     public const string _increaseKey = "Increase";
     public Decimal _extraDamageFromPlays;
     
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
-    
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(10, ValueProp.Move),
         new DynamicVar("Increase",7)];
@@ -40,19 +39,18 @@ public class RockOfAges() : ArknightsMudrockCard(0,
         PlayerChoiceContext choiceContext,
         CardPlay play)
     {
-        ArgumentNullException.ThrowIfNull(play.Target, nameof(play.Target));
-        AttackCommand attackCommand = await DamageCmd.Attack(this.DynamicVars.Damage.BaseValue).FromCard((CardModel) this).Targeting(play.Target).WithHitFx("vfx/vfx_attack_blunt").Execute(choiceContext);
-        DamageVar damage = this.DynamicVars.Damage;
-        damage.BaseValue = damage.BaseValue + this.DynamicVars["Increase"].BaseValue;
-        this.ExtraDamageFromPlays += this.DynamicVars["Increase"].BaseValue;
+        await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_attack_blunt").Execute(choiceContext);
         EnergyCost.AddThisCombat(1);
+        DamageVar damage = DynamicVars.Damage;
+        damage.BaseValue = damage.BaseValue + DynamicVars["Increase"].BaseValue;
+        ExtraDamageFromPlays += DynamicVars["Increase"].BaseValue;
     }
     
     protected override void AfterDowngraded()
     {
         base.AfterDowngraded();
-        DamageVar damage = this.DynamicVars.Damage;
-        damage.BaseValue = damage.BaseValue + this.ExtraDamageFromPlays;
+        DamageVar damage = DynamicVars.Damage;
+        damage.BaseValue = damage.BaseValue + ExtraDamageFromPlays;
     }
     
     protected override void OnUpgrade()

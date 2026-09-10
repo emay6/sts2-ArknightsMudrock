@@ -3,9 +3,11 @@
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
 #endregion
@@ -34,7 +36,7 @@ public class QuakePower() : ArknightsMudrockPower
         // make quake do damage to all enemies, and instead have palpiations have an extra hit
         foreach (var creature in targets/*(palpitationsActive ? targets : targets.Where(c => c != Owner))*/)
         {
-            await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), creature, Amount, ValueProp.Unpowered, Applier, null);
+            IEnumerable<DamageResult> damageResults = await CreatureCmd.Damage(choiceContext, creature, Amount, ValueProp.Unpowered, null, null);
         }
         
         if (Owner.IsAlive)

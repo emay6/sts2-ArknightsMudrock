@@ -2,11 +2,13 @@ using ArknightsMudrock.ArknightsMudrockCode.Hooks;
 using ArknightsMudrock.ArknightsMudrockCode.Variables;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace ArknightsMudrock.ArknightsMudrockCode.Powers;
@@ -21,10 +23,11 @@ public class ShattershieldPower() : ArknightsMudrockPower, IAfterShieldLost
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new ShieldVar(0)];
 
-    public async Task AfterShieldLost(PlayerChoiceContext choiceContext, Player player, int amount, Creature? source = null, ValueProp? props = null)
+    public async Task AfterShieldLost(PlayerChoiceContext choiceContext, Player player, int amount,
+        Creature? source = null, ValueProp? props = null)
     {
         if (player != Owner.Player || source == null || !props.GetValueOrDefault().IsPoweredAttack()) return;
 
-        await CreatureCmd.Damage(choiceContext, source, Amount, ValueProp.Unpowered, Owner, null);
+        IEnumerable<DamageResult> damageResults = await CreatureCmd.Damage(choiceContext, source, Amount, ValueProp.Unpowered, Owner);
     }
 }

@@ -1,5 +1,6 @@
 #region
 
+using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -24,11 +25,7 @@ public class CrushingPeak() : ArknightsMudrockCard(4,
         CardPlay play)
     {
         var combatState = CombatState ?? throw new InvalidOperationException("Crushing Peak requires an active combat.");
-        await DamageCmd.Attack(DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .TargetingAllOpponents(combatState)
-            .WithHitFx("vfx/vfx_attack_blunt")
-            .Execute(choiceContext);
+        await CommonActions.CardAttack(this, play, vfx: "vfx/vfx_attack_blunt").Execute(choiceContext);
     }
 
     public override Task AfterCardEnteredCombat(CardModel card)
