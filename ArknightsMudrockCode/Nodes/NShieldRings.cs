@@ -1,5 +1,6 @@
 #region
 
+using System.Collections.Generic;
 using ArknightsMudrock.ArknightsMudrockCode.Extensions;
 using MudrockCharacter = ArknightsMudrock.ArknightsMudrockCode.Character.ArknightsMudrock;
 using Godot;
@@ -30,6 +31,7 @@ public partial class NShieldRings : Control
 	private bool _targetVisible;
 	private Sprite2D? _shieldFlash;
 	private double _shieldFlashElapsed;
+	private NCreature[] _otherPlayerCreatures = [];
 
 	public override void _Ready()
 	{
@@ -60,7 +62,35 @@ public partial class NShieldRings : Control
 		_creature = FindCreatureAncestor(GetParent());
 		_stateDisplay = FindStateDisplay(_creature);
 		ConnectShieldChangedSignals();
+		CacheOtherPlayerCreatures();
 		Refresh();
+	}
+
+	/// <summary>
+	/// One-time walk to find the NCreature nodes belonging to every other player in this
+	/// combat. This used to be done via full-tree recursion every single frame (the main
+	/// source of the multiplayer lag); now it runs once at init and the small cached list
+	/// is just spot-checked (.IsFocused) each frame with no recursion involved.
+	/// </summary>
+	private void CacheOtherPlayerCreatures()
+	{
+		if (_creature == null || _player == null) return;
+
+		var owner = _player.Creature;
+		var found = new List<NCreature>();
+		CollectOtherPlayerCreatures(_creature.GetTree().Root, owner, found);
+		_otherPlayerCreatures = [.. found];
+	}
+
+	private static void CollectOtherPlayerCreatures(Node node, Creature owner, List<NCreature> results)
+	{
+		foreach (var child in node.GetChildren())
+		{
+			if (child is NCreature creature && creature.Entity.IsPlayer && creature.Entity != owner)
+				results.Add(creature);
+
+			CollectOtherPlayerCreatures(child, owner, results);
+		}
 	}
 
 	public override void _Process(double delta)
@@ -151,10 +181,7 @@ public partial class NShieldRings : Control
         var isMudrock = _player?.Character is MudrockCharacter;
         var hasRingData = isMudrock ? maxShields > 0 : currentShields > 0;
         var isMultiplayer = _player?.Creature.CombatState?.Players.Count > 1;
-        var hasFocusedOtherPlayer = isMultiplayer == true
-            && _player != null
-            && _creature != null
-            && HasFocusedOtherPlayer(_player.Creature, _creature.GetTree().Root);
+        var hasFocusedOtherPlayer = isMultiplayer == true && HasFocusedOtherPlayer(_otherPlayerCreatures);
         var isFocused = _creature?.IsFocused == true;
         var shouldShowForFocus = isFocused
             || (_isLocalPlayer && (isMultiplayer != true || !hasFocusedOtherPlayer));
@@ -198,17 +225,16 @@ public partial class NShieldRings : Control
 		return null;
 	}
 
-    private static bool HasFocusedOtherPlayer(Creature owner, Node node)
+    /// <summary>
+    /// Checks whether any of the cached other-player creature nodes is currently focused.
+    /// The list is tiny (at most 3 in a 4-player game) and pre-filtered to exclude the
+    /// owner, so this is just a cheap linear scan of node property reads.
+    /// </summary>
+    private static bool HasFocusedOtherPlayer(NCreature[] otherPlayerCreatures)
     {
-        foreach (var child in node.GetChildren())
+        foreach (var creature in otherPlayerCreatures)
         {
-            if (child is NCreature creature
-                && creature.IsFocused
-                && creature.Entity.IsPlayer
-                && creature.Entity != owner)
-                return true;
-
-            if (HasFocusedOtherPlayer(owner, child)) return true;
+            if (creature.IsFocused) return true;
         }
 
 		return false;

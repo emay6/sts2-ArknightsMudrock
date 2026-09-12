@@ -20,8 +20,6 @@ public class RockOfAges() : ArknightsMudrockCard(0,
     public const string _increaseKey = "Increase";
     public Decimal _extraDamageFromPlays;
     
-    protected override HashSet<CardTag> CanonicalTags => [CardTag.Strike];
-    
     protected override IEnumerable<DynamicVar> CanonicalVars => [
         new DamageVar(10, ValueProp.Move),
         new DynamicVar("Increase",7)];
