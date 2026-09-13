@@ -28,16 +28,30 @@ public class NCombatUiPatch
         var players = state.Players.ToList();
         var localPlayer = LocalContext.GetMe(state)!;
         var playersByCreature = players.ToDictionary(player => player.Creature);
-        var playerCreatures = state.PlayerCreatures.ToList();
-        var playerVisuals = FindPlayerVisuals(NCombatRoom.Instance?._allyContainer, playerCreatures.Count);
-        AlignLocalPlayerVisual(playerCreatures, playerVisuals, localPlayer);
+        var playerVisuals = FindPlayerVisuals(NCombatRoom.Instance?._allyContainer);
 
-        for (var index = 0; index < Math.Min(playerCreatures.Count, playerVisuals.Count); index++)
+        // Match each ally visual to its owning player by walking up to its
+        // NCreature ancestor and reading the entity it's backing, instead of
+        // pairing playerCreatures[i] with playerVisuals[i] by list position.
+        // Position-based pairing only worked for the local player (via the
+        // old AlignLocalPlayerVisual swap) and had no guarantee the ally
+        // container's child order matched state.PlayerCreatures for anyone
+        // else -- e.g. join order, reconnects, or another mod reordering
+        // ally visuals could silently attach shield-ring data to the wrong
+        // player's creature. Matching on the actual backing entity is
+        // correct regardless of child order.
+        foreach (var visual in playerVisuals)
         {
-            if (!playersByCreature.TryGetValue(playerCreatures[index], out var player)) continue;
+            if (FindCreatureAncestor(visual)?.Entity is not { IsPlayer: true } entity) continue;
+            if (!playersByCreature.TryGetValue(entity, out var player)) continue;
 
-            var shieldRings = MudrockAddedNodes.NShieldRings[playerVisuals[index]];
-            var characterVisuals = playerVisuals[index].GetNode<Node2D>("Visuals");
+            var shieldRings = MudrockAddedNodes.NShieldRings[visual];
+            // Vanilla characters (and well-behaved mods) nest a "Visuals" Node2D
+            // inside their NCreatureVisuals scene. Some third-party character mods
+            // convert a bare Node2D directly into NCreatureVisuals with no such
+            // child, so fall back to the NCreatureVisuals node itself in that case
+            // -- it's a Node2D too, so it works as an anchor either way.
+            var characterVisuals = visual.GetNodeOrNull<Node2D>("Visuals") ?? visual;
             shieldRings.Reparent(characterVisuals, false);
             // Counter the complete creature transform so the 512px ring art
             // has the same screen size for every character archetype.
@@ -54,14 +68,12 @@ public class NCombatUiPatch
         }
     }
 
-    private static List<NCreatureVisuals> FindPlayerVisuals(Node? node, int playerCount)
+    private static List<NCreatureVisuals> FindPlayerVisuals(Node? node)
     {
         var visuals = new List<NCreatureVisuals>();
         if (node == null) return visuals;
         CollectCreatureVisuals(node, visuals);
-        // Preserve the combat room's ally-container order. Sorting by screen
-        // position can disagree with player-creature order on the host.
-        return visuals.Take(playerCount).ToList();
+        return visuals;
     }
 
     private static void CollectCreatureVisuals(Node node, List<NCreatureVisuals> result)
@@ -73,21 +85,6 @@ public class NCombatUiPatch
 
             CollectCreatureVisuals(child, result);
         }
-    }
-
-    private static void AlignLocalPlayerVisual(
-        List<MegaCrit.Sts2.Core.Entities.Creatures.Creature> playerCreatures,
-        List<NCreatureVisuals> visuals,
-        MegaCrit.Sts2.Core.Entities.Players.Player localPlayer)
-    {
-        var localPlayerIndex = playerCreatures.FindIndex(creature => creature == localPlayer.Creature);
-        var localVisualIndex = visuals.FindIndex(visual =>
-            FindCreatureAncestor(visual)?._isRemotePlayerOrPet == false);
-
-        if (localPlayerIndex < 0 || localVisualIndex < 0 || localPlayerIndex == localVisualIndex) return;
-
-        (visuals[localPlayerIndex], visuals[localVisualIndex]) =
-            (visuals[localVisualIndex], visuals[localPlayerIndex]);
     }
 
     private static NCreature? FindCreatureAncestor(Node node)
