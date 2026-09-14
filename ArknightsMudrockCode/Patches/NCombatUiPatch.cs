@@ -1,9 +1,11 @@
 #region
 
 using ArknightsMudrock.ArknightsMudrockCode.Nodes;
+using ArknightsMudrock.ArknightsMudrockCode.Utils;
 using MudrockCharacter = ArknightsMudrock.ArknightsMudrockCode.Character.ArknightsMudrock;
 using Godot;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Assets;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Nodes.Combat;
@@ -20,6 +22,14 @@ public class NCombatUiPatch
     private static void Postfix(NCombatUi __instance, CombatState state)
     {
         var shieldCounter = MudrockAddedNodes.NShieldIcon[__instance];
+        if (!GodotObject.IsInstanceValid(shieldCounter))
+        {
+            // Same stale-cache hazard as NShieldRings below -- see the comment
+            // there for why AddedNode can hand back an already-disposed instance.
+            shieldCounter = PreloadManager.Cache.GetScene(MudrockResources.NShieldIconPath)
+                .Instantiate<NShieldIcon>();
+            __instance.AddChild(shieldCounter);
+        }
         shieldCounter.Initialize(LocalContext.GetMe(state)!);
         shieldCounter.Reparent(__instance.EnergyCounterContainer);
         shieldCounter.Position = new Vector2(60, -100);
@@ -46,6 +56,21 @@ public class NCombatUiPatch
             if (!playersByCreature.TryGetValue(entity, out var player)) continue;
 
             var shieldRings = MudrockAddedNodes.NShieldRings[visual];
+            if (!GodotObject.IsInstanceValid(shieldRings))
+            {
+                // AddedNode<NCreatureVisuals, NShieldRings> caches one instance per
+                // visual and has no way to know when that instance has freed itself
+                // independently (NShieldRings._Process calls QueueFree() once its
+                // player's creature is no longer alive). If a stale, already-disposed
+                // instance comes back from the cache -- which happens when re-entering
+                // combat from certain event flows, e.g. the Mysterious Knight event's
+                // follow-up VisualOnly encounter -- calling Reparent/Initialize on it
+                // throws ObjectDisposedException. Build and attach a replacement the
+                // same way the AddedNode factory would, rather than trusting the cache.
+                shieldRings = PreloadManager.Cache.GetScene(MudrockResources.NShieldRingsPath)
+                    .Instantiate<NShieldRings>();
+                visual.AddChild(shieldRings);
+            }
             // Vanilla characters (and well-behaved mods) nest a "Visuals" Node2D
             // inside their NCreatureVisuals scene. Some third-party character mods
             // convert a bare Node2D directly into NCreatureVisuals with no such
